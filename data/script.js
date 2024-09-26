@@ -136,7 +136,6 @@ try {
                         }
                         const serverResponseText = await response.text();
                         inputArea.value = serverResponseText;
-                        location.reload();
                     } catch (error) {
                     console.error('Error sending data: ', error);
                     }
