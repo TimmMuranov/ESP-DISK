@@ -41,6 +41,7 @@ void setup (){
   server.on("/h", HTTP_POST, toHome);
   server.on("/f", HTTP_POST, openFile);
   server.on("/c", HTTP_POST, clear);
+  server.on("/a", about);
   server.begin();
   Serial.println("Access Point started");
 
@@ -260,6 +261,10 @@ String openFileFunc(){
   return dataInFile;
 }
 //=====================================
+void about(){
+  server.send(200, "text/html", FsReader("about.html"));
+}
+//=====================================
 String getPage(){
   String page =
   "<!DOCTYPE html>"
@@ -272,11 +277,11 @@ String getPage(){
   FsReader("style.css") +
   "</style>" +
   "<div class='form-container'>"
-  "<h2>Welcome to ESP8266 server!</h2>"
-  "<p><a id='about'>Об устройстве</a><p>"
+  "<h2>Добро пожаловать в ESP8266 сервер!</h2>"
+  "<p><button id='about'>Об устройстве</button><p>"
   "<hr><h3>Открытый файл: " +
   myDir + openedFile + "</h3>"
-  "<textarea rows='10' cols='50' id='inputArea'></textarea>"
+  "<textarea rows='10' cols='50' id='inputArea' autocomplete = 'on'></textarea>"
   "<button class='btn-creatC' id='clear'>Удалить файл</button>"
   "<button class='btn-submit' id='submitButton'>Сохранить</button>"
   "<button class='btn-creatF' id='creatFile'>Создать файл</button>"
