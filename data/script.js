@@ -119,6 +119,11 @@ try {
 });
 
         buttons.forEach((button) => {
+            if (button.getAttribute('id') === 'about'){
+                button.addEventListener('click', async () => {
+                    window.location.href = "/a";
+                })
+            }
             if (button.getAttribute('name') === 'fileButtons') {
                 const fileName = button.innerHTML;
                 button.addEventListener('click', async () => {
@@ -136,6 +141,7 @@ try {
                         }
                         const serverResponseText = await response.text();
                         inputArea.value = serverResponseText;
+                        location.reload();
                     } catch (error) {
                     console.error('Error sending data: ', error);
                     }
