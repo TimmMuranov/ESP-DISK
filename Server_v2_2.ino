@@ -189,7 +189,7 @@ String takePostDir(){
 void toHome(){
   server.send(200, "text/plain", "Вы вернулись назад");
   int l = myDir.length();
-  for(int x=1; x<l; ++x{
+  for(int x=1; x<l; ++x){
     if(myDir[l-x] != "/") myDir.remove(l-(x+1));
     else break;
   }
