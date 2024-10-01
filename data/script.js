@@ -141,7 +141,9 @@ try {
                         }
                         const serverResponseText = await response.text();
                         inputArea.value = serverResponseText;
-                        location.reload();
+                        if(button.getAttribute('id') === 'dirs'){
+                                location.reload();
+                        }
                     } catch (error) {
                     console.error('Error sending data: ', error);
                     }
