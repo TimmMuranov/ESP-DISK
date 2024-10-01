@@ -8,7 +8,7 @@ String creatBut(String myDirectory){
   if(isDir.isDirectory()){
     String str(isDir.name());
     buttons +=
-    "<button style='background-color:Blue' name = 'fileButtons' id='" + str + "'>" +
+    "<button style='background-color:Blue' name = 'fileButtons' id='dirs'>" +
      str +
     "</button><p>";
     }
