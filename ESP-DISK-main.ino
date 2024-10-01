@@ -188,11 +188,11 @@ String takePostDir(){
 //=====================================
 void toHome(){
   server.send(200, "text/plain", "Вы вернулись назад");
-  int l = myDir.length();
   myDir = "/";
   openedFile = "";
   Serial.println("вы вернулись домой");
 }
+
 //=====================================
 void clear(){
   server.send(200, "text/plain", deleteFileOrEmptyDir());
@@ -229,6 +229,7 @@ String deleteFileOrEmptyDir() {
     }
     file.close();
 }
+
 //=====================================
 void openFile(){
   server.send(200, "text/plain", openFileFunc());
@@ -246,6 +247,7 @@ String openFileFunc(){
     Serial.println("не удалось парсить");
     return "failed to parse JSON";
   }
+  
   String dataFile = doc["fileName"];
   if (dataFile == "") return "Эта кнопка пустая. Хз, как так...";
   if(!SD.exists(myDir + dataFile)) return "Этого файла нет, хз как так";
@@ -256,15 +258,18 @@ String openFileFunc(){
     Serial.println ("Вы перешли в директорию " + dataFile);
     return "";
   }
+  
   String dataInFile(sdReader(myDir, dataFile));
   Serial.println(dataInFile + " от функции openFileFunc");
   openedFile = dataFile;
   return dataInFile;
 }
+
 //=====================================
 void about(){
   server.send(200, "text/html", FsReader("about.html"));
 }
+
 //=====================================
 String getPage(){
   String page =
@@ -281,7 +286,7 @@ String getPage(){
   "<h2>Добро пожаловать в ESP8266 сервер!</h2>"
   "<p><button id='about'>Об устройстве</button><p>"
   "<hr><h3>Открытый файл: " +
-  myDir + openedFile + "</h3>"
+  myDir + "</h3>"
   "<textarea rows='10' cols='50' id='inputArea' autocomplete = 'on'></textarea>"
   "<button class='btn-creatC' id='clear'>Удалить файл</button>"
   "<button class='btn-submit' id='submitButton'>Сохранить</button>"
