@@ -11,11 +11,12 @@
 #include <SD.h>
 
 //======= Включение файлов =======
-#include "amogus.h"
-#include "fsReader.h"
-#include "creatBut.h"
-#include "sdReader.h"
-#include "rmDir.h"
+#include "headers/amogus.h"
+#include "headers/fsReader.h"
+#include "headers/creatBut.h"
+#include "headers/sdReader.h"
+#include "headers/rmDir.h"
+#include "headers/takePostText.h"
 
 //====== Глобальные переменные ====
 const char *ssid="TimsServer";//имя 
@@ -81,37 +82,8 @@ void winOpen(){
 //и сразу отправляет ответ
 
 void handleData() {
-  server.send(200, "text/plain", takePostText());
+  server.send(200, "text/plain", takePostText(myDir, openedFile, server.arg("plain")));
   Serial.println("handleData сработал");
-}
-
-//____ Обработка текстового запроса ____
-
-String takePostText(){
-  String data = server.arg("plain");
-  if (data == "") {
-    Serial.println("No data received.");
-  }
-  StaticJsonDocument<100> doc;
-  DeserializationError error = deserializeJson(doc, data);
-  if (error) {
-    Serial.println("Не получилось парсить инфу");
-    return "Не получилось парсить";
-  }
-  String dataFile = doc["data"];
-  Serial.println(dataFile + " от функции takePostText");
-  if(openedFile != ""){
-    if (SD.exists(myDir + openedFile)){
-      SD.remove(myDir + openedFile);
-      File file = SD.open(myDir + openedFile, FILE_WRITE);
-      file.print(dataFile);
-      file.close();
-      Serial.println(sdReader(myDir, openedFile));
-      return "Текст записан в файл " + openedFile;
-    }
-    return "запрос получен: " + dataFile + ", но запись не удалась...";
-  }
-  return "Вы не открыли ни одного файла. Записать текст некуда :'(";
 }
 
 //===== нажатие на создание файла =====
