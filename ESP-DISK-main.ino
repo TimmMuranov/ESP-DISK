@@ -1,3 +1,8 @@
+/* 04.10.2024 Муранов тимофей
+Данный код является основным в сервере. 
+Здесь происходят главные взаимодействия функций.
+*/
+//==== Объявление библиотек =====
 #include "LittleFS.h"
 #include "ArduinoJson.h"
 #include <ESP8266WiFi.h>
@@ -5,12 +10,14 @@
 #include <SPI.h>
 #include <SD.h>
 
+//======= Включение файлов =======
 #include "amogus.h"
 #include "fsReader.h"
 #include "creatBut.h"
 #include "sdReader.h"
 #include "rmDir.h"
 
+//====== Глобальные переменные ====
 const char *ssid="TimsServer";//имя 
 const char *password ="12345678";//пароль 
 
@@ -75,7 +82,7 @@ void winOpen(){
 
 void handleData() {
   server.send(200, "text/plain", takePostText());
-  Serial.println("handleData are worked");
+  Serial.println("handleData сработал");
 }
 
 //____ Обработка текстового запроса ____
@@ -186,7 +193,7 @@ String takePostDir(){
   return "Во время создания директории что-то пошло не так...";
 }
 
-//=====================================
+//======== Возвращение назад ========
 void toHome(){
   server.send(200, "text/plain", "Вы вернулись назад");
   myDir = rmLastDir(myDir, 1);
@@ -194,7 +201,7 @@ void toHome(){
   Serial.println("вы вернулись назад");
 }
 
-//=====================================
+//=========== Удаление ==============
 void clear(){
   server.send(200, "text/plain", deleteFileOrEmptyDir());
 }
