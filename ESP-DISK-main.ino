@@ -9,9 +9,10 @@
 #include "fsReader.h"
 #include "creatBut.h"
 #include "sdReader.h"
+#include "rmDir.h"
 
 const char *ssid="TimsServer";//имя 
-const char *password ="12345678";//пароль
+const char *password ="12345678";//пароль 
 
 ESP8266WebServer server(80);
 
@@ -188,9 +189,9 @@ String takePostDir(){
 //=====================================
 void toHome(){
   server.send(200, "text/plain", "Вы вернулись назад");
-  myDir = "/";
+  myDir = rmLastDir(myDir, 1);
   openedFile = "";
-  Serial.println("вы вернулись домой");
+  Serial.println("вы вернулись назад");
 }
 
 //=====================================

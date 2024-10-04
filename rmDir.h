@@ -6,9 +6,8 @@
 слеш в конце обязателен.
 */
 
-#include "arduino.h"
 String rmLastDir(String dirs, int num){
-    if (dirs[0] != '/' || dirs[dirs.length()-1] != "/"){
+    if (dirs[0] != '/' || dirs[dirs.length()-1] != '/'){
     	Serial.println ("rmLD - неверный ввод");
         return dirs;
     }
@@ -18,10 +17,10 @@ String rmLastDir(String dirs, int num){
     }
 //_________________________________________
   while (num){
-  	if (dirs == "/") return dirs;
-     dirs.remove(dirs.length());
-     int sNum = dirs.lastIndexOf("/");
-     dirs.remove(sNum + 1); //сам '/' остается
+  if (dirs == "/") return dirs;
+  dirs.remove(dirs.length() - 1);
+  int sNum = dirs.lastIndexOf("/");
+  dirs.remove(sNum + 1);
      --num;
   }
   return dirs;
