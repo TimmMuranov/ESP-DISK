@@ -16,11 +16,11 @@
 #include "headers/creatBut.h"
 #include "headers/sdReader.h"
 #include "headers/rmDir.h"
-#include "headers/takePostText.h"
 #include "headers/getPage.h"
 #include "headers/clear.h"
-#include "headers/takePostDir.h"
-#include "headers/takePostFile.h"
+#include "headers/netFunc/takePostDir.h"
+#include "headers/netFunc/takePostFile.h"
+#include "headers/netFunc/takePostText.h"
 
 //====== Глобальные переменные ====
 const char *ssid="TimsServer";//имя 
