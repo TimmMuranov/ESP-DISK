@@ -7,7 +7,7 @@
 <h3>Краткий экскурс</h3>
 Данная прошивка использует файловую систему микроконтроллера - LittleFs.
 Инструкций по настройке файловой системы на МК довольно много. Я следовал этой:
-//https://microcontrollerslab.com/littlefs-introduction-install-esp8266-nodemcu-filesystem-uploader-arduino/ 
+https://microcontrollerslab.com/littlefs-introduction-install-esp8266-nodemcu-filesystem-uploader-arduino/ 
 
 Файлы, которые необходимо закинуть на файловую систему находятся в папке data.
 Кроме того, в проекте использованы стандартные библиотеки ESP8266. Можно подгрузить отсюда:
