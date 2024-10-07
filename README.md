@@ -21,4 +21,4 @@
 
 [1]: https://microcontrollerslab.com/littlefs-introduction-install-esp8266-nodemcu-filesystem-uploader-arduino
 [2]: https://github.com/esp8266/Arduino
-[3]: data/about.html
+[3]: [https://data/about.html](https://github.com/TimmMuranov/ESP-DISK/blob/9b55a45773a25dc8959eaaf39c21a48dacdc60f5/data/about.html)
