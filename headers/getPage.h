@@ -1,3 +1,7 @@
+/*
+Создает html страницу сервера, 
+содержащую окно для ввода и кнопки-файлы
+*/
 String getPage(String myD){
   String page =
   "<!DOCTYPE html>"
