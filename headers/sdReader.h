@@ -1,3 +1,7 @@
+/*
+Читает файл file из директории dir.
+Можно улучшить, добавив буферное чтение.
+*/
 #include <SD.h>
 
 String sdReader(String dir, String file){
