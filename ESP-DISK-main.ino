@@ -13,11 +13,11 @@
 //======= Включение файлов =======
 #include "headers/amogus.h"
 #include "headers/fsReader.h"
-#include "headers/readers/creatBut.h"
-#include "headers/readers/sdReader.h"
 #include "headers/rmDir.h"
 #include "headers/getPage.h"
 #include "headers/clear.h"
+#include "headers/readers/creatBut.h"
+#include "headers/readers/sdReader.h"
 #include "headers/netFunc/takePostDir.h"
 #include "headers/netFunc/takePostFile.h"
 #include "headers/netFunc/takePostText.h"
