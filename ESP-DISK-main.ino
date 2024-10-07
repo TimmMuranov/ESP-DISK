@@ -32,6 +32,8 @@ ESP8266WebServer server(80);
 String myDir = "/";
 String openedFile = "";
 
+Blinker led(2);
+
 ////////////// НАСТРОЙКИ /////////////
 void setup (){
   Serial.begin(115200);
@@ -59,7 +61,6 @@ void setup (){
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
 
-  Blinker led(2);
   led.blink(3, 250, 250);
 }
 
