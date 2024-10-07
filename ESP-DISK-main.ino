@@ -13,8 +13,8 @@
 //======= Включение файлов =======
 #include "headers/amogus.h"
 #include "headers/fsReader.h"
-#include "headers/creatBut.h"
-#include "headers/sdReader.h"
+#include "headers/readers/creatBut.h"
+#include "headers/readers/sdReader.h"
 #include "headers/rmDir.h"
 #include "headers/getPage.h"
 #include "headers/clear.h"
