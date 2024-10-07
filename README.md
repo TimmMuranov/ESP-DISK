@@ -16,8 +16,9 @@
 Подключившись к этой точке доступа, необходимо в любом браузере перейти по пути "192.168.4.1". 
 Откроется веб интерфейс сервера. 
 Более подробрые инструкции по эксплуатации зависят от версии сервера. 
-Они будут храниться в файле "ESP-DISK/data/about.html".<p> 
+Они будут храниться [здесь][3] (ESP-DISK/data/about.html".)<p> 
 <img src='images/IMG_20240927_161509.jpg' />
 
 [1]: https://microcontrollerslab.com/littlefs-introduction-install-esp8266-nodemcu-filesystem-uploader-arduino
 [2]: https://github.com/esp8266/Arduino
+[3]: data/about.html
