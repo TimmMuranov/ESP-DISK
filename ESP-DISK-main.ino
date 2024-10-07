@@ -9,6 +9,7 @@
 #include <ESP8266WebServer.h>
 #include <SPI.h>
 #include <SD.h>
+#include <Blinker.h>
 
 //======= Включение файлов =======
 #include "headers/amogus.h"
@@ -57,11 +58,15 @@ void setup (){
 
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
+
+  Blinker led(2);
+  led.blink(3, 250, 250);
 }
 
 //======= основной цикл программы =======
 void loop(){
     server.handleClient();
+    led.tick();
   }
 
 //////////////// ФУНКЦИИ //////////////
@@ -75,29 +80,36 @@ void loop(){
 void winOpen(){
   server.send(200, "text/html", getPage(myDir));
   Serial.println ("Страница загружена");
+  led.blink(3, 100, 100);
 }
 
 //=====================================
 void about(){
   server.send(200, "text/html", FsReader("about.html"));
+  led.blink(3, 100, 100);
+  led.blink(3, 300, 300);
+  led.blink(3, 100, 100);
 }
 
 //========= Обработка текста ==========
 void handleData() {
   server.send(200, "text/plain", takePostText(myDir, openedFile, server.arg("plain")));
   Serial.println("handleData сработал");
+  led.blink(2, 500, 100);
 }
 
 //===== нажатие на создание файла =====
 void handleFile(){
   server.send(200, "text/plain", takePostFile(myDir, server.arg("plain")));
   Serial.println("Вы нажали на создание файла");
+  led.blink(1, 100, 100);
 }
 
 //==== На создание директории ======
 void handleDir(){
   server.send(200, "text/plain", takePostDir(myDir, server.arg("plain")));
   Serial.println("Вы нажали на создание директории");
+  led.blink(1, 100, 100);
 }
 
 //======== Возвращение назад ========
@@ -106,16 +118,21 @@ void toHome(){
   myDir = rmLastDir(myDir, 1);
   openedFile = "";
   Serial.println("вы вернулись назад");
+  led.blink(1, 100, 100);
+  led.blink(1, 300, 100);
 }
 
 //=========== Удаление ==============
 void clear(){
   server.send(200, "text/plain", delDirFile(myDir, server.arg("plain")));
+  led.blink(5, 10, 10);
 }
 
 //=====================================
 void openFile(){
   server.send(200, "text/plain", openFileFunc());
+  led.blink(3, 100, 100);
+  led.blink(1, 500, 100);
 }
 //____________________________________
 //Эта функция изменяет глобал переменные, так что она в основном файле
