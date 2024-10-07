@@ -9,7 +9,6 @@
 #include <ESP8266WebServer.h>
 #include <SPI.h>
 #include <SD.h>
-#include <Blinker.h>
 
 //======= Включение файлов =======
 #include "headers/amogus.h"
@@ -31,8 +30,6 @@ ESP8266WebServer server(80);
 
 String myDir = "/";
 String openedFile = "";
-
-Blinker led(2);
 
 ////////////// НАСТРОЙКИ /////////////
 void setup (){
@@ -60,15 +57,11 @@ void setup (){
 
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
-
-  led.blink(3, 250, 250);
-  digitalWrite(2, HIGH);
 }
 
 //======= основной цикл программы =======
 void loop(){
     server.handleClient();
-    led.tick();
   }
 
 //////////////// ФУНКЦИИ //////////////
@@ -89,34 +82,21 @@ void winOpen(){
 //=====================================
 void about(){
   server.send(200, "text/html", FsReader("about.html"));
-  led.blink(3, 100, 100);
-  led.blink(3, 300, 300);
-  led.blink(3, 100, 100);
-  digitalWrite(2, HIGH);
 }
 
 //========= Обработка текста ==========
 void handleData() {
   server.send(200, "text/plain", takePostText(myDir, openedFile, server.arg("plain")));
-  Serial.println("handleData сработал");
-  led.blink(3, 100, 100);
-  digitalWrite(2, HIGH);
 }
 
 //===== нажатие на создание файла =====
 void handleFile(){
   server.send(200, "text/plain", takePostFile(myDir, server.arg("plain")));
-  Serial.println("Вы нажали на создание файла");
-  led.blink(1, 100, 100);
-  digitalWrite(2, HIGH);
 }
 
 //==== На создание директории ======
 void handleDir(){
   server.send(200, "text/plain", takePostDir(myDir, server.arg("plain")));
-  Serial.println("Вы нажали на создание директории");
-  led.blink(1, 100, 100);
-  digitalWrite(2, HIGH);
 }
 
 //======== Возвращение назад ========
@@ -124,14 +104,11 @@ void toHome(){
   server.send(200, "text/plain", "Вы вернулись назад");
   myDir = rmLastDir(myDir, 1);
   openedFile = "";
-  Serial.println("вы вернулись назад");
 }
 
 //=========== Удаление ==============
 void clear(){
   server.send(200, "text/plain", delDirFile(myDir, server.arg("plain")));
-  led.blink(10, 10, 10);
-  digitalWrite(2, HIGH);
 }
 
 //=====================================
