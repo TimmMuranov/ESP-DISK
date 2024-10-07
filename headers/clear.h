@@ -1,3 +1,7 @@
+/*
+Данная функция удаляет с SD-карты 
+файл/директорию data из директории myD 
+*/
 #include <SD.h>
 
 String delDirFile(String myD, String data) {
