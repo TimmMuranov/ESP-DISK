@@ -2,6 +2,7 @@
 Создает html страницу сервера, 
 содержащую окно для ввода и кнопки-файлы
 */
+#include "readers/fsReader.h"
 String getPage(String myD){
   String page =
   "<!DOCTYPE html>"
