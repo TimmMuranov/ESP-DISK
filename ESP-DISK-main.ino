@@ -15,7 +15,6 @@
 #include "headers/creatBut.h"
 #include "headers/rmDir.h"
 #include "headers/getPage.h"
-#include "headers/readers/fsReader.h"
 #include "headers/readers/sdReader.h"
 #include "headers/netFunc/clear.h"
 #include "headers/netFunc/takePostDir.h"
