@@ -74,9 +74,6 @@ void loop(){
 //срабатывает при переходе на страницу сервера
 void winOpen(){
   server.send(200, "text/html", getPage(myDir));
-  Serial.println ("Страница загружена");
-  led.blink(3, 100, 100);
-  digitalWrite(2, HIGH);
 }
 
 //=====================================
