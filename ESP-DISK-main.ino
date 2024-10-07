@@ -62,6 +62,7 @@ void setup (){
   digitalWrite(2, HIGH);
 
   led.blink(3, 250, 250);
+  digitalWrite(2, HIGH);
 }
 
 //======= основной цикл программы =======
@@ -77,11 +78,12 @@ void loop(){
 //функция ответа паралельно выполняет необходимые действия
 
 //========== Первое срабатывание ===========
-//срабатывает при запуске сервера
+//срабатывает при переходе на страницу сервера
 void winOpen(){
   server.send(200, "text/html", getPage(myDir));
   Serial.println ("Страница загружена");
   led.blink(3, 100, 100);
+  digitalWrite(2, HIGH);
 }
 
 //=====================================
@@ -90,13 +92,15 @@ void about(){
   led.blink(3, 100, 100);
   led.blink(3, 300, 300);
   led.blink(3, 100, 100);
+  digitalWrite(2, HIGH);
 }
 
 //========= Обработка текста ==========
 void handleData() {
   server.send(200, "text/plain", takePostText(myDir, openedFile, server.arg("plain")));
   Serial.println("handleData сработал");
-  led.blink(2, 500, 100);
+  led.blink(3, 100, 100);
+  digitalWrite(2, HIGH);
 }
 
 //===== нажатие на создание файла =====
@@ -104,6 +108,7 @@ void handleFile(){
   server.send(200, "text/plain", takePostFile(myDir, server.arg("plain")));
   Serial.println("Вы нажали на создание файла");
   led.blink(1, 100, 100);
+  digitalWrite(2, HIGH);
 }
 
 //==== На создание директории ======
@@ -111,6 +116,7 @@ void handleDir(){
   server.send(200, "text/plain", takePostDir(myDir, server.arg("plain")));
   Serial.println("Вы нажали на создание директории");
   led.blink(1, 100, 100);
+  digitalWrite(2, HIGH);
 }
 
 //======== Возвращение назад ========
@@ -119,21 +125,18 @@ void toHome(){
   myDir = rmLastDir(myDir, 1);
   openedFile = "";
   Serial.println("вы вернулись назад");
-  led.blink(1, 100, 100);
-  led.blink(1, 300, 100);
 }
 
 //=========== Удаление ==============
 void clear(){
   server.send(200, "text/plain", delDirFile(myDir, server.arg("plain")));
-  led.blink(5, 10, 10);
+  led.blink(10, 10, 10);
+  digitalWrite(2, HIGH);
 }
 
 //=====================================
 void openFile(){
   server.send(200, "text/plain", openFileFunc());
-  led.blink(3, 100, 100);
-  led.blink(1, 500, 100);
 }
 //____________________________________
 //Эта функция изменяет глобал переменные, так что она в основном файле
