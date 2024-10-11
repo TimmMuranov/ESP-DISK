@@ -11,6 +11,7 @@
 #include <SD.h>
 
 //======= Включение файлов =======
+#include "headers/blinker.h"
 #include "headers/amogus.h"
 #include "headers/creatBut.h"
 #include "headers/rmDir.h"
@@ -74,6 +75,7 @@ void loop(){
 //срабатывает при переходе на страницу сервера
 void winOpen(){
   server.send(200, "text/html", getPage(myDir));
+  // blinker(дописать);
 }
 
 //=====================================
