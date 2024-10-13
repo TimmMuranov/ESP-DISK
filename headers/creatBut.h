@@ -27,7 +27,7 @@ String creatBut(String myDirectory){
   if(!f.isDirectory()){
     String str(f.name());
     buttons +=
-    "<button style='background-color:Gray' name = 'fileButtons' id='" + str + "'>" +
+    "<button style='background-color:Gray' name = 'fileButtons' id='files'>" +
     str +
     "</button><p>";
     }
