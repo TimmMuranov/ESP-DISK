@@ -1,6 +1,6 @@
-/* 05.10.2024 Муранов Тимофей
-Данный код является основным в сервере. 
-Здесь происходят главные взаимодействия функций.
+/*Автор - Муранов Тимофей
+ * Данный код является основным в сервере. 
+ * Здесь происходят взаимодействия функций.
 */
 //==== Объявление библиотек =====
 #include "LittleFS.h"
@@ -17,7 +17,7 @@
 #include "headers/rmDir.h"
 #include "headers/getPage.h"
 #include "headers/readers/sdReader.h"
-//#include "headers/readers/fsReader.h" //объявлена в getPage.h
+//#include "headers/readers/fsReader.h" //объявлна в getPage.h
 #include "headers/netFunc/clear.h"
 #include "headers/netFunc/takePostDir.h"
 #include "headers/netFunc/takePostFile.h"
@@ -32,6 +32,9 @@ ESP8266WebServer server(80);
 String myDir = "/";
 String openedFile = "";
 
+unsigned long lastBlink = 0;
+int flag = 0;
+int fastBlinks = 0;
 ////////////// НАСТРОЙКИ /////////////
 void setup (){
   Serial.begin(115200);
@@ -62,20 +65,30 @@ void setup (){
 
 //======= основной цикл программы =======
 void loop(){
-    server.handleClient();
+  server.handleClient();
+
+  unsigned long currentMillis = millis();
+  if(flag==0){
+    if(currentMillis - lastBlink > 5000){
+      lastBlink = currentMillis;
+      flag=1;
+      digitalWrite(2, LOW);
+    }
   }
+  if(flag>0){
+    if(currentMillis - lastBlink > 1){
+      flag=0;
+      digitalWrite(2, HIGH);
+      lastBlink = currentMillis;
+    }
+  }
+}
 
 //////////////// ФУНКЦИИ //////////////
 //Большинство функций лежит в /headers
-//срабатывают при запросе клиента
-//и сразу отправляют ответ 
-//функция ответа паралельно выполняет необходимые действия
-
-//========== Первое срабатывание ===========
 //срабатывает при переходе на страницу сервера
 void winOpen(){
   server.send(200, "text/html", getPage(myDir));
-  // blinker(дописать);
 }
 
 //=====================================
@@ -84,6 +97,11 @@ void about(){
 }
 
 //========= Обработка текста ==========
+//срабатывают при запросе клиента
+//и сразу отправляют ответ 
+//функция ответа паралельно выполняет необходимые действия
+
+//========== Первое срабатывание ===========
 void handleData() {
   server.send(200, "text/plain", takePostText(myDir, openedFile, server.arg("plain")));
 }
@@ -108,11 +126,13 @@ void toHome(){
 //=========== Удаление ==============
 void clear(){
   server.send(200, "text/plain", delDirFile(myDir, server.arg("plain")));
+  blinker(2, 6, 25, 25, 1);
 }
 
 //=====================================
 void openFile(){
   server.send(200, "text/plain", openFileFunc());
+  blinker(2, 1, 50, 50, 1);
 }
 //____________________________________
 //Эта функция изменяет глобал переменные, так что она в основном файле
