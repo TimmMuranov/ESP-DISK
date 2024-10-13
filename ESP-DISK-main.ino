@@ -17,7 +17,7 @@
 #include "headers/rmDir.h"
 #include "headers/getPage.h"
 #include "headers/readers/sdReader.h"
-//#include "headers/readers/fsReader.h" //объявлна в getPage.h
+//#include "headers/readers/fsReader.h" //объявлена в getPage.h
 #include "headers/netFunc/clear.h"
 #include "headers/netFunc/takePostDir.h"
 #include "headers/netFunc/takePostFile.h"
