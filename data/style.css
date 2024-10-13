@@ -1,3 +1,4 @@
+/*==== стили текста ==== */
 .form-container {
     width: 400px;
     margin: auto;
@@ -5,8 +6,9 @@
     }
 .input-area {
     width: 100%;
-    height: 100px;
+    height: 300px;
     }
+/*====== Стили кнопок ======*/
 .btn-submit {
     margin: auto;
     width: 45%;
@@ -25,8 +27,32 @@
 .btn-creatD {
     width: 20%;
     background-color: Blue;
+
 }
 .btn-creatC {
     width: 15%;
     background-color: Red;
+}
+/*==== стили канваса ==== */
+canvas {
+    border: 5px solid aqua;
+    touch-action: none;
+    margin: auto;
+    width: 100%;
+    height: 50%;
+}
+.l1{
+  display: flex;
+  border: 3px solid aqua;
+  width: 520px;
+  height: 520px;
+}
+.butRight{
+    position: flex;
+    left: 450px;
+}
+.rangers{
+  width: 100px;
+  position: flex;
+  left: 120px;
 }
