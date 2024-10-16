@@ -48,14 +48,14 @@ void setup (){
   WiFi.mode(WIFI_AP);
   WiFi.softAP(ssid, password);
 
-  server.on("/", winOpen);
-  server.on("/q", HTTP_POST, handleData);
-  server.on("/bf", HTTP_POST, handleFile);
-  server.on("/bd", HTTP_POST, handleDir);
-  server.on("/h", HTTP_POST, toHome);
-  server.on("/f", HTTP_POST, openFile);
-  server.on("/c", HTTP_POST, clear);
-  server.on("/a", about);
+  server.on("/", winOpen);//первая загрузка
+  server.on("/q", HTTP_POST, handleData);//принимает текст 
+  server.on("/bf", HTTP_POST, handleFile);//создает файл
+  server.on("/bd", HTTP_POST, handleDir);//создает директорию
+  server.on("/h", HTTP_POST, toHome);//кнопка назад
+  server.on("/f", HTTP_POST, openFile);//открытие файла
+  server.on("/c", HTTP_POST, clear);//удаление файла
+  server.on("/a", about);//открытие описания
   server.begin();
   Serial.println("Access Point started");
 
