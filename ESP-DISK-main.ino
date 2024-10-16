@@ -128,7 +128,7 @@ void clear(){
   blinker(2, 6, 25, 25, 1);
 }
 
-//=====================================
+//=== открытие файла/директории ====
 void openFile(){
   server.send(200, "text/plain", openFileFunc());
   blinker(2, 1, 50, 50, 1);
