@@ -90,16 +90,17 @@ void loop(){
 // Выполняют действия на сервере //
 // Большинство функций в /headers//
 ///////////////////////////////////
+//===== открывает интерфейс ===========
 void winOpen(){
   server.send(200, "text/html", getPage(myDir));
 }
 
-//=====================================
+//====== открытие информации ==========
 void about(){
   server.send(200, "text/html", FsReader("about.html"));
 }
 
-//========== Первое срабатывание ===========
+//======== Первое срабатывание ========
 void handleData() {
   server.send(200, "text/plain", takePostText(myDir, openedFile, server.arg("plain")));
 }
@@ -114,14 +115,14 @@ void handleDir(){
   server.send(200, "text/plain", takePostDir(myDir, server.arg("plain")));
 }
 
-//======== Возвращение назад ========
+//======== Возвращение назад =======
 void toHome(){
   server.send(200, "text/plain", "Вы вернулись назад");
   myDir = rmLastDir(myDir, 1);
   openedFile = "";
 }
 
-//=========== Удаление ==============
+//=========== Удаление =============
 void clear(){
   server.send(200, "text/plain", delDirFile(myDir, server.arg("plain")));
   blinker(2, 6, 25, 25, 1);
