@@ -292,3 +292,28 @@ colorSet.addEventListener('click', () => {
     else{colNum++;}
     colorSet.style.backgroundColor = mainColors[colNum];
 })
+//==== функции сохранения (в разработке) ====
+/*
+//этой кнопки пока нет
+saveBut.addEventListener('click', () => {
+    const dataUrl = canvas.toDataURL('image/png');
+    //если открыт текстовый редактор - сохранять в txt
+    //если графический - в png
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    let name = "";
+    name = prompt("Введите название");
+    if(name === ""){
+        alert("Вы не ввели название.")
+    }
+    else if (name === null){
+        alert("Ну ок. Отмена так отмена :)")
+    }
+    else{
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+});
+*/
