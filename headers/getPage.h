@@ -38,7 +38,8 @@ String getPage(String myD){
       "</div>"
   "</div>"
   "<button class='btn-creatC' id='clear'>Удалить файл</button>"
-  "<button class='btn-submit' id='submitButton'>Сохранить</button>"
+  "<button class='btn-submit' id='submitButton'>Сохранить на диск</button>"
+  "<button class='btn-submit' id='DownloadButton'>Скачать файл</button>"
   "<button class='btn-creatF' id='creatFile'>Создать файл</button>"
   "<button class='btn-creatD' id='creatDir'>Создать папку</button>"
   "</div><hr>" +
