@@ -10,16 +10,9 @@
     }
 /*====== Стили кнопок ======*/
 .btn-submit {
-    margin: auto;
-    width: 45%;
-    background-color: #4CAF50;
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    }
-.btn-submit:hover {
-    background-color: #43a047;
-    }
+    width: 20%;
+    background-color: Green;
+}
 .btn-creatF {
     width: 20%;
     background-color: Gray;

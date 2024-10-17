@@ -22,6 +22,15 @@ document.getElementById('changeMode').addEventListener('click', () => {
         document.getElementById('paintContainer').style.display = "none";
     }
 })
+document.getElementById('openFileName').value = '';
+inputArea.value = '';
+
+if (localStorage.getItem('text') !== null) {
+    inputArea.value = localStorage.getItem('text');
+}
+if (localStorage.getItem('textName') !== null) {
+    document.getElementById('openFileName').value = localStorage.getItem('textName');
+}
 
 //======== обработчики событий =======
 document.getElementById('submitButton').addEventListener('click', async () => {
@@ -127,8 +136,12 @@ document.getElementById('Home').addEventListener('click', async () => {
     } catch (error) {
         console.error('Error sending data: ', error);
     }
-    document.getElementById('openFileName').value = '';
-    document.getElementById('inputArea').value = '';
+    if (localStorage.getItem('text') !== null) {
+        localStorage.removeItem('text');
+    }
+    if (localStorage.getItem('textName') !== null) {
+        localStorage.removeItem('textName');
+    }
     location.reload();
 });
 
@@ -187,12 +200,30 @@ document.querySelectorAll('button').forEach((button) => {
                 }
 
                 if(button.getAttribute('id') === 'dirs'){
+                    if (localStorage.getItem('text') !== null) {
+                        localStorage.removeItem('text');
+                    }
+                    if (localStorage.getItem('textName') !== null) {
+                        localStorage.removeItem('textName');
+                    }
                     location.reload();
                 }
                 else if(button.getAttribute('id') === 'files'){
                     const serverResponseText = await response.text();
                     inputArea.value = serverResponseText;
+
+                    if(localStorage.getItem('text')!== null){
+                        localStorage.removeItem('text');
+                    }
+                    if(localStorage.getItem('textName')!== null){
+                        localStorage.removeItem('textName');
+                    }
+
+                    localStorage.setItem('text', serverResponseText);
+                    localStorage.setItem('textName', fileName);
+                    inputArea.value = serverResponseText;
                     document.getElementById('openFileName').value = fileName;
+
                 }
             } catch (error) {
                 console.error('Error sending data: ', error);
@@ -293,27 +324,20 @@ colorSet.addEventListener('click', () => {
     colorSet.style.backgroundColor = mainColors[colNum];
 })
 //==== функции сохранения (в разработке) ====
-/*
-//этой кнопки пока нет
-saveBut.addEventListener('click', () => {
-    const dataUrl = canvas.toDataURL('image/png');
-    //если открыт текстовый редактор - сохранять в txt
-    //если графический - в png
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    let name = "";
-    name = prompt("Введите название");
-    if(name === ""){
-        alert("Вы не ввели название.")
+document.getElementById("DownloadButton").addEventListener('click', () => {
+    if(document.getElementById('paintContainer').style.display === "block"){
+        alert("Работа с рисунками в стадии разработки.");
+        return;
     }
-    else if (name === null){
-        alert("Ну ок. Отмена так отмена :)")
-    }
-    else{
-        link.download = name;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+    let textName = prompt("Введите название, под которым хотите сохранить файл");
+    if(textName === ''){alert("Вы не ввели название"); return;}
+    if(textName === null){alert("Ок. Отменяем :)"); return;}
+    let text = inputArea.value;
+
+    let a = document.createElement("a");
+    let file = new Blob([text], {type: 'application/json'});
+    a.href = URL.createObjectURL(file);
+    a.download = textName + ".txt";
+    a.click();
 });
-*/
+
