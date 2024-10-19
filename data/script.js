@@ -15,28 +15,47 @@ document.getElementById('changeMode').addEventListener('click', () => {
     if (document.getElementById('wordContainer').style.display === "block"){
         document.getElementById('wordContainer').style.display = "none";
         document.getElementById('paintContainer').style.display = "block";
-
+        localStorage.setItem('editorMod', 'paint');
     }
     else if (document.getElementById('paintContainer').style.display === "block"){
         document.getElementById('wordContainer').style.display = "block";
         document.getElementById('paintContainer').style.display = "none";
+        localStorage.setItem('editorMod', 'text');
     }
 })
 document.getElementById('openFileName').value = '';
 inputArea.value = '';
-
-if (localStorage.getItem('text') !== null) {
+//==== Установка сохраненных значений ====
+if(localStorage.getItem('text') !== null) {
     inputArea.value = localStorage.getItem('text');
 }
-if (localStorage.getItem('textName') !== null) {
+if(localStorage.getItem('textName') !== null) {
     document.getElementById('openFileName').value = localStorage.getItem('textName');
+}
+if(localStorage.getItem('editorMod') !== null) {
+    if(localStorage.getItem('editorMod') === 'paint'){
+        document.getElementById('paintContainer').style.display = "block";
+        document.getElementById('wordContainer').style.display = "none";
+    }
+    else{
+        document.getElementById('paintContainer').style.display = "none";
+        document.getElementById('wordContainer').style.display = "block";
+    }
+}
+if(localStorage.getItem('canvasData') !== null){
+    var dataURL = localStorage.getItem('canvasData');
+    var img = new Image;
+    img.src = dataURL;
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+    };
 }
 
 //======== обработчики событий =======
 document.getElementById('submitButton').addEventListener('click', async () => {
 const data = inputArea.value;
 if(document.getElementById('paintContainer').style.display === "block"){
-    alert("Работа с рисунками в стадии разработки.");
+    alert("Сохранение картинок на сервер пока не работает.");
     return;
 }
 try {// Отправляем данные на сервер и сохраняем ответ
@@ -63,7 +82,7 @@ try {// Отправляем данные на сервер и сохраняе�
 
 document.getElementById('creatFile').addEventListener('click', async () => {
 if(document.getElementById('paintContainer').style.display === "block"){
-    alert("Работа с рисунками в стадии разработки.");
+    alert("Создание картинок на сервере пока не работает.");
     return;
 }
 const data = prompt('Введите имя нового файла');
@@ -147,7 +166,10 @@ document.getElementById('Home').addEventListener('click', async () => {
 
 document.getElementById('clear').addEventListener('click', async () => {
     if(document.getElementById('paintContainer').style.display === "block"){
-        alert("Работа с рисунками в стадии разработки.");
+        let sure = confirm("Вы точно хотите очистить поле?");
+        if (sure === null){return;}
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         return;
     }
     const data = prompt('Введите имя файла или директории');
@@ -211,18 +233,14 @@ document.querySelectorAll('button').forEach((button) => {
                 else if(button.getAttribute('id') === 'files'){
                     const serverResponseText = await response.text();
                     inputArea.value = serverResponseText;
-
-                    if(localStorage.getItem('text')!== null){
-                        localStorage.removeItem('text');
-                    }
-                    if(localStorage.getItem('textName')!== null){
-                        localStorage.removeItem('textName');
-                    }
-
                     localStorage.setItem('text', serverResponseText);
                     localStorage.setItem('textName', fileName);
                     inputArea.value = serverResponseText;
                     document.getElementById('openFileName').value = fileName;
+
+                    document.getElementById('wordContainer').style.display = "block";
+                    document.getElementById('paintContainer').style.display = "none";
+                    localStorage.setItem('editorMod', 'text');
 
                 }
             } catch (error) {
@@ -234,6 +252,9 @@ document.querySelectorAll('button').forEach((button) => {
 
 //===============================================
 //======== функции рисовалки ====================
+
+ctx.fillStyle = '#ffffff'; //заполняем канву белым.
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 const brushSizeInput = document.getElementById('brushSize');
 const eraserSizeInput = document.getElementById('eraserSize');
@@ -284,6 +305,7 @@ function startDrawing(e) {
 function stopDrawing() {
     drawing = false;
     ctx.beginPath();
+    localStorage.setItem('canvasData', canvas.toDataURL());
 }
 
 function draw(e) {
@@ -323,10 +345,26 @@ colorSet.addEventListener('click', () => {
     else{colNum++;}
     colorSet.style.backgroundColor = mainColors[colNum];
 })
-//==== функции сохранения (в разработке) ====
+//========= функции сохранения =========
 document.getElementById("DownloadButton").addEventListener('click', () => {
     if(document.getElementById('paintContainer').style.display === "block"){
-        alert("Работа с рисунками в стадии разработки.");
+        const dataUrl = document.getElementById("canvas").toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        let name = "";
+        name = prompt("Введите название вашего шедевра");
+        if(name === ""){
+            alert("Вы не ввели название.")
+            }
+        else if (name === null){
+            alert("Ну ок. Отмена так отмена :)")
+        }
+        else{
+            link.download = name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
         return;
     }
     let textName = prompt("Введите название, под которым хотите сохранить файл");
