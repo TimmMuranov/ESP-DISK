@@ -47,6 +47,7 @@ String getPage(String myD){
   creatBut(myD) +
   "<script>" +
   FsReader("script.js") +
+  FsReader("background.js") +
   "</script></body></html>";
   return page;
 }
