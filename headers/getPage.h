@@ -14,6 +14,7 @@ String getPage(String myD){
   "<style>" +
     FsReader("style.css") +
   "</style>" +
+  "<div id='gradient' />
   "<div class='form-container'>"
   "<h2>Добро пожаловать в ESP8266 сервер!</h2>"
   "<p><button id='about'>Об устройстве</button><p>"
