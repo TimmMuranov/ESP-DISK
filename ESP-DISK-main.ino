@@ -45,8 +45,14 @@ void setup (){
   if(!SD.begin(4)) Serial.println("initialization failed!");
   Serial.println("initialization SD card done.");
 
-  WiFi.mode(WIFI_AP);
-  WiFi.softAP(ssid, password);
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(ssid, password);
+
+    // Настраиваем IP-адрес точки доступа
+    IPAddress ip(228, 228, 52, 52);
+    IPAddress gateway(192, 168, 4, 1);
+    IPAddress subnet(255, 255, 255, 0);
+    WiFi.softAPConfig(ip, gateway, subnet);
 
   server.on("/", winOpen);//первая загрузка
   server.on("/q", HTTP_POST, handleData);//принимает текст 
