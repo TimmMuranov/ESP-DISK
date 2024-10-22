@@ -11,17 +11,17 @@
 #include <SD.h>
 
 //======= Включение файлов =======
-#include "headers/blinker.h"
-#include "headers/amogus.h"
-#include "headers/creatBut.h"
-#include "headers/rmDir.h"
-#include "headers/getPage.h"
-#include "headers/readers/sdReader.h"
+#include "headers/blinker.hpp"
+#include "headers/amogus.hpp"
+#include "headers/creatBut.hpp"
+#include "headers/rmDir.hpp"
+#include "headers/getPage.hpp"
+#include "headers/readers/sdReader.hpp"
 //#include "headers/readers/fsReader.h" //объявлна в getPage.h
-#include "headers/netFunc/clear.h"
-#include "headers/netFunc/takePostDir.h"
-#include "headers/netFunc/takePostFile.h"
-#include "headers/netFunc/takePostText.h"
+#include "headers/netFunc/clear.hpp"
+#include "headers/netFunc/takePostDir.hpp"
+#include "headers/netFunc/takePostFile.hpp"
+#include "headers/netFunc/takePostText.hpp"
 
 //====== Глобальные переменные ====
 const char *ssid="TimsServer";//имя 
