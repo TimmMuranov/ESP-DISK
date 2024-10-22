@@ -16,14 +16,16 @@ String getPage(String myD){
   "</style>" +
   "<div id='gradient' />"
   "<div class='form-container'>"
-  "<h2>Добро пожаловать в ESP8266 сервер!</h2>"
+  "<h2 style='align:center;'>Добро пожаловать!</h2>"
   "<p><button id='about'>Об устройстве</button><p>"
   "<hr><h3>Текущая директория:" +
   myD + "</h3><p>"
   "<h3>Открытый файл: <input id='openFileName' readonly></h3><p><hr>"
   "<button id='changeMode'>Сменить редактор</button>"
   "<div id='wordContainer'>"
-    "<textarea rows='10' cols='50' id='inputArea' autocomplete = 'on'></textarea>"
+    "<div type='l1'>"
+      "<textarea class='input-area' id='inputArea' autocomplete = 'on'></textarea>"
+    "</div>"
   "</div>"
   "<div id='paintContainer'>"
     "<div type='l1'>"
