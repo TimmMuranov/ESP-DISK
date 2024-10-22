@@ -51,6 +51,8 @@ if(localStorage.getItem('canvasData') !== null){
     };
 }
 
+document.getElementById('inputArea').style.resize = 'none';
+
 //======== обработчики событий =======
 document.getElementById('submitButton').addEventListener('click', async () => {
 const data = inputArea.value;
