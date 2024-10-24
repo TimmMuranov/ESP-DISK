@@ -69,7 +69,7 @@ void loop(){
 
   unsigned long currentMillis = millis();
   if(flag==0){
-    if(currentMillis - lastBlink > 5000){
+    if(currentMillis - lastBlink > 3000){
       lastBlink = currentMillis;
       flag=1;
       digitalWrite(2, LOW);
