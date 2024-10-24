@@ -1,11 +1,3 @@
-//==== переменные графического редактора =====
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-let drawing = false;
-let mode; // 'free' for free drawing, 'eraser' for eraser
-let lastX = 0;
-let lastY = 0;
-
 //====== настройка режима редактора =====
 const inputArea = document.getElementById('inputArea');
 document.getElementById('paintContainer').style.display = "none";
@@ -254,6 +246,19 @@ document.querySelectorAll('button').forEach((button) => {
 
 //===============================================
 //======== функции рисовалки ====================
+const screenWidth = window.screen.width;
+const screenHeight = window.screen.height;
+const availableScreenWidth = window.screen.availWidth
+const availableScreenHeight = window.screen.availHeight
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let drawing = false;
+let mode; // 'free' for free drawing, 'eraser' for eraser
+let lastX = 0;
+let lastY = 0;
+console.log(screenWidth);
+console.log(screenHeight);
 
 ctx.fillStyle = '#ffffff'; //заполняем канву белым.
 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -334,8 +339,8 @@ function draw(e) {
 
 function getCoordinates(e) {
     const rect = canvas.getBoundingClientRect();
-    const x = ((e.clientX || e.touches[0].clientX) - rect.left)/1.34;
-    const y = ((e.clientY || e.touches[0].clientY) - rect.top)/1.34;
+    const x = ((e.clientX || (e.touches && e.touches[0].clientX)) - rect.left) * (canvas.width / rect.width);
+    const y = ((e.clientY || (e.touches && e.touches[0].clientY)) - rect.top) * (canvas.height / rect.height);
     return [x, y];
 }
 
