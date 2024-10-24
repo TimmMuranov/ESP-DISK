@@ -1,5 +1,6 @@
 /*==== стили текста ==== */
-.form-container {
+.form-container 
+{
     width: 400px;
     margin: auto;
     overflow: hidden;
@@ -7,56 +8,66 @@
     border: 3px solid black;
     border-radius: 5%;
     }
-.input-area {
+.input-area 
+{
     width: 100%;
     height: 300px;
-    }
+}
 /*====== Стили кнопок ======*/
-.btn-submit {
+.btn-submit 
+{
     width: 20%;
     background-color: Green;
     border-radius: 20%;
 }
-.btn-creatF {
+.btn-creatF 
+{
     width: 20%;
     background-color: Gray;
     border-radius: 20%;
 }
-.btn-creatD {
+.btn-creatD 
+{
     width: 20%;
     background-color: Blue;
     border-radius: 20%;
 }
-.btn-creatC {
+.btn-creatC 
+{
     width: 15%;
     background-color: Red;
     border-radius: 20%;
 }
 /*==== стили канваса ==== */
-canvas {
+canvas 
+{
     border: 5px solid aqua;
     touch-action: none;
     margin: auto;
     width: 100%;
     height: 50%;
 }
-.l1{
+.l1
+{
   display: flex;
   border: 3px solid aqua;
   width: 520px;
   height: 520px;
 }
-.butRight{
+.butRight
+{
     position: flex;
     left: 450px;
 }
-.rangers{
+.rangers
+{
   width: 100px;
   position: flex;
   left: 120px;
 }
 /* ==== Стили фона ===== */
-body{
+body
+{
    background-color: aqua;
    padding: 0px;
    margin: 0px;
@@ -68,4 +79,13 @@ body{
   height: 100%;
   padding: 0px;
   margin: 0px;
+}
+h2
+{
+    text-align: center;
+}
+
+h3
+{
+    text-align: center;
 }
