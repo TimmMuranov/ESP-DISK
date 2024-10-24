@@ -13,8 +13,8 @@ String getPage(String myD){
   "<title>Servak</title>"
   "<style>" +
     FsReader("style.css") +
-  "</style>" +
-  "<div id='gradient' />"
+  "</style>"
+  "<body id='gradient'>"
   "<div class='form-container'>"
   "<h2 style='align:center;'>Добро пожаловать!</h2>"
   "<p><button id='about'>Об устройстве</button><p>"
@@ -26,6 +26,14 @@ String getPage(String myD){
     "<div type='l1'>"
       "<textarea class='input-area' id='inputArea' autocomplete = 'on'></textarea>"
     "</div>"
+      "<div class='controls'>"
+        "<button name='textControls' id='textSize'>Размер</button>"
+        "<a id=textSizeValue>10</a><p>"
+        "<button name='textControls' id='textColor'>Цвет</button>"
+        "<a id=textControlsValue>Черный</a><p>"
+        "<button name='textControls' id='textStyle'>Стиль</button>"
+        "<a id=textControlsValue>Обычный</a><p>"
+      "</div>"
   "</div>"
   "<div id='paintContainer'>"
     "<div type='l1'>"
