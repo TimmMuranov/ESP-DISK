@@ -17,11 +17,12 @@
 #include "headers/rmDir.hpp"
 #include "headers/getPage.hpp"
 #include "headers/readers/sdReader.hpp"
-//#include "headers/readers/fsReader.h" //объявлна в getPage.h
+/* #include "headers/readers/fsReader.h" //объявлна в getPage.h */
 #include "headers/netFunc/clear.hpp"
 #include "headers/netFunc/takePostDir.hpp"
 #include "headers/netFunc/takePostFile.hpp"
 #include "headers/netFunc/takePostText.hpp"
+#include "headers/readers/base64_decoder.hpp"
 
 //====== Глобальные переменные ====
 const char *ssid="TimsServer";//имя 
