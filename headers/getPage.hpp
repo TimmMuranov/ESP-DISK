@@ -20,7 +20,7 @@ String getPage(String myD){
   "<p><button id='about'>Об устройстве</button><p>"
   "<hr><h3>Текущая директория:" +
   myD + "</h3><p>"
-  "<h3>Открытый файл: <input id='openFileName' readonly></h3><p><hr>"
+  "<h3>Открытый файл:</h3><input id='openFileName' readonly><p><hr>"
   "<button id='changeMode'>Сменить редактор</button>"
   "<div id='wordContainer'>"
     "<div type='l1'>"
