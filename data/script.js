@@ -1,5 +1,6 @@
 //====== настройка режима редактора =====
 const inputArea = document.getElementById('inputArea');
+const textNameArea = document.getElementById('openFileName');
 document.getElementById('paintContainer').style.display = "none";
 document.getElementById('wordContainer').style.display = "block";
 
@@ -15,15 +16,11 @@ document.getElementById('changeMode').addEventListener('click', () => {
         localStorage.setItem('editorMod', 'text');
     }
 })
-document.getElementById('openFileName').value = '';
-inputArea.value = '';
+
 //==== Установка сохраненных значений ====
-if(localStorage.getItem('text') !== null) {
-    inputArea.value = localStorage.getItem('text');
-}
-if(localStorage.getItem('textName') !== null) {
-    document.getElementById('openFileName').value = localStorage.getItem('textName');
-}
+if(localStorage.getItem('text') !== null) inputArea.value = localStorage.getItem('text');
+if(localStorage.getItem('textName') !== null) textNameArea.value = localStorage.getItem('textName');
+
 if(localStorage.getItem('editorMod') !== null) {
     if(localStorage.getItem('editorMod') === 'paint'){
         document.getElementById('paintContainer').style.display = "block";
@@ -43,118 +40,50 @@ if(localStorage.getItem('canvasData') !== null){
     };
 }
 
-document.getElementById('inputArea').style.resize = 'none';
-
 //======== обработчики событий =======
 document.getElementById('submitButton').addEventListener('click', async () => {
-const data = inputArea.value;
-if(document.getElementById('paintContainer').style.display === "block"){
-    alert("Сохранение картинок на сервер пока не работает.");
-    return;
-}
-try {// Отправляем данные на сервер и сохраняем ответ
-        const response = await fetch('/q', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ data })
-        });
-        console.log('Successfully sent data to server ' + data);
-        // Проверяем, был ли запрос успешным
-        if (!response.ok) {
-            console.log('Ошибка сервера: ' + response.statusText);
-            return;
-        }
-        // Получаем ответ от сервера
-        const serverResponseText = await response.text();
-        alert(serverResponseText);
-    } catch (error) {
-        console.error('Error sending data: ', error);
+    const data = inputArea.value;
+    if(document.getElementById('paintContainer').style.display === "block"){
+        alert("Сохранение картинок на сервер пока не работает.");
+        return;
     }
+    let answer =  await fetchForm('/q', data);
+    alert(answer);
 });
 
 document.getElementById('creatFile').addEventListener('click', async () => {
-if(document.getElementById('paintContainer').style.display === "block"){
-    alert("Создание картинок на сервере пока не работает.");
-    return;
-}
-const data = prompt('Введите имя нового файла');
-if(data===null){
-    alert("Создание файла отменено.");
-    return;
-}
-try {
-        const response = await fetch('/bf', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ data })
-        });
-        if (!response.ok) {
-            console.log('Ошибка сервера: ' + response.statusText);
-            return;
-        }
-        const serverResponseText = await response.text();
-        alert(serverResponseText);
-    } catch (error) {
-        console.error('Error sending data: ', error);
+    if(document.getElementById('paintContainer').style.display === "block"){
+        alert("Создание картинок на сервере пока не работает.");
+        return;
     }
+    const data = prompt('Введите имя нового файла');
+    if(data===null){
+        alert("Создание файла отменено.");
+        return;
+    }
+    let answer = await fetchForm('/bf', data);
+    alert(answer);
     location.reload();
 });
 
 document.getElementById('creatDir').addEventListener('click', async () => {
-const data = prompt('Введите имя новой директории');
-if(data===null){
-    alert("Создание директории отменено.");
-    return;
-}
-try {
-        const response = await fetch('/bd', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ data })
-        });
-        if (!response.ok) {
-            console.log('Ошибка сервера: ' + response.statusText);
-            return;
-        }
-        const serverResponseText = await response.text();
-        alert(serverResponseText);
-    } catch (error) {
-        console.error('Error sending data: ', error);
+    const data = prompt('Введите имя новой директории');
+    if(data == null){
+        alert("Создание директории отменено.");
     }
-    location.reload();
+    else{
+        let answer = await fetchForm('/bd', data);
+        alert(answer);
+        location.reload();
+    }
 });
 
 document.getElementById('Home').addEventListener('click', async () => {
-    const data = "toHome";
-    try {
-        const response = await fetch('/h', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ data })
-        });
-        if (!response.ok) {
-            console.log('Ошибка сервера: ' + response.statusText);
-            return;
-        }
-        const serverResponseText = await response.text();
-        //alert(serverResponseText);
-    } catch (error) {
-        console.error('Error sending data: ', error);
-    }
-    if (localStorage.getItem('text') !== null) {
-        localStorage.removeItem('text');
-    }
-    if (localStorage.getItem('textName') !== null) {
-        localStorage.removeItem('textName');
-    }
+    let answer = await fetchForm('/h', "toHome");
+    inputArea.value = '';
+    textNameArea.value = '';
+    if (localStorage.getItem('text') !== null) localStorage.removeItem('text');
+    if (localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
     location.reload();
 });
 
@@ -171,85 +100,43 @@ document.getElementById('clear').addEventListener('click', async () => {
         alert('Удаление отменено.');
         return;
     }
-    try {
-        const response = await fetch('/c', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ data })
-        });
-        if (!response.ok) {
-            console.log('Ошибка сервера: ' + response.statusText);
-            return;
-        }
-        const serverResponseText = await response.text();
-        alert(serverResponseText);
-    } catch (error) {
-        console.error('Error sending data: ', error);
-    }
+    let answer = await fetchForm('/c', data);
+    alert(answer);
     location.reload();
 });
 
+document.getElementById('about').addEventListener('click', function () {
+    window.location.href = "/a";
+})
+//==== Обработка кнопок-файлов =====
 document.querySelectorAll('button').forEach((button) => {
-    if (button.getAttribute('id') === 'about'){
-        button.addEventListener('click', async () => {
-            window.location.href = "/a";
-        })
-        return;
-    }
+    let fileName = button.innerHTML;
     if (button.getAttribute('name') === 'fileButtons') {
-        const fileName = button.innerHTML;
-        button.addEventListener('click', async () => {
-            try {
-                const response = await fetch('/f', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ fileName })
-                });
-
-                if (!response.ok) {
-                    console.log('Ошибка: ' + response.statusText);
-                    return;
-                }
-
-                if(button.getAttribute('id') === 'dirs'){
-                    if (localStorage.getItem('text') !== null) {
-                        localStorage.removeItem('text');
-                    }
-                    if (localStorage.getItem('textName') !== null) {
-                        localStorage.removeItem('textName');
-                    }
-                    location.reload();
-                }
-                else if(button.getAttribute('id') === 'files'){
-                    const serverResponseText = await response.text();
-                    inputArea.value = serverResponseText;
-                    localStorage.setItem('text', serverResponseText);
-                    localStorage.setItem('textName', fileName);
-                    inputArea.value = serverResponseText;
-                    document.getElementById('openFileName').value = fileName;
-
-                    document.getElementById('wordContainer').style.display = "block";
-                    document.getElementById('paintContainer').style.display = "none";
-                    localStorage.setItem('editorMod', 'text');
-
-                }
-            } catch (error) {
-                console.error('Error sending data: ', error);
-            }
-        });
+        if (button.getAttribute('id') === 'dirs'){
+            button.addEventListener('click', async () => {
+                let answer = await fetchForm('/f', fileName);
+                inputArea.value = '';
+                textNameArea.value = '';
+                if (localStorage.getItem('text') !== null) localStorage.removeItem('text');
+                if (localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
+                location.reload();
+            })
+        }
+        else if(button.getAttribute('id') === 'files'){
+            button.addEventListener('click', async () => {
+                let answer = await fetchForm('/f', fileName);
+                inputArea.value = answer;
+                textNameArea.value = fileName;
+                localStorage.setItem('text', answer);
+                localStorage.setItem('textName', fileName);
+                document.getElementById('wordContainer').style.display = "block";
+                document.getElementById('paintContainer').style.display = "none";
+            })
+        }
     }
-});
+})
 
-//===============================================
 //======== функции рисовалки ====================
-const screenWidth = window.screen.width;
-const screenHeight = window.screen.height;
-const availableScreenWidth = window.screen.availWidth
-const availableScreenHeight = window.screen.availHeight
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -257,8 +144,6 @@ let drawing = false;
 let mode; // 'free' for free drawing, 'eraser' for eraser
 let lastX = 0;
 let lastY = 0;
-console.log(screenWidth);
-console.log(screenHeight);
 
 ctx.fillStyle = '#ffffff'; //заполняем канву белым.
 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -326,13 +211,15 @@ function draw(e) {
 
     if (mode === 'free') {
         ctx.strokeStyle = mainColors[colNum];
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(x, y);
     } else if(mode === 'eraser'){
-        ctx.clearRect(x - brushSize / 2, y - brushSize / 2, brushSize, brushSize);
+        ctx.strokeStyle = "white";
+
     }
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+
     lastX = x;
     lastY = y;
 }
@@ -386,3 +273,27 @@ document.getElementById("DownloadButton").addEventListener('click', () => {
     a.click();
 });
 
+async function fetchForm (inUrl, inData){
+    const url = inUrl;
+    const data = inData;
+    try {// Отправляем данные на сервер и сохраняем ответ
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data })
+        });
+        console.log('Данные отправлены на сервер:\n' + data);
+        // Проверяем, был ли запрос успешным
+        if (!response.ok) {
+            console.error('Ошибка сервера: ' + response.statusText);
+        }
+        // Получаем ответ от сервера
+        const serverResponseText = await response.text();
+        return serverResponseText;
+    } catch (error) {
+        console.error('Ошбка отправки данных: ', error);
+    }
+    console.log("Функция fetchForm завершилась:\n"+serverResponseText);
+}
