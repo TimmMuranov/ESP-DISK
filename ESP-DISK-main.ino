@@ -29,7 +29,7 @@ int fastBlinks = 0;
 void setup (){
   Serial.begin(115200);
 
-  while(!Serial){}//ждем инициализации serial
+  while(!Serial){}//ждем serial
 
   Serial.print("Initializing SD card...");
   if(!SD.begin(4)) Serial.println("initialization failed!");
@@ -46,6 +46,7 @@ void setup (){
   server.on("/f", HTTP_POST, openFile);//открытие файла
   server.on("/c", HTTP_POST, clear);//удаление файла
   server.on("/a", about);//открытие описания
+  server.on("/cs", HTTP_POST, closeFiles);//закрывает все файлы в текущей директории
   server.begin();
   Serial.println("Access Point started");
 
@@ -138,7 +139,7 @@ String openFileFunc(){
     return "failed to parse JSON";
   }
   
-  String dataFile = doc["fileName"];
+  String dataFile = doc["data"];
   if (dataFile == "") return "Эта кнопка пустая. Хз, как так...";
   if(!SD.exists(myDir + dataFile)) return "Этого файла нет, хз как так";
   File file = SD.open(myDir + dataFile);
@@ -151,4 +152,9 @@ String openFileFunc(){
   String dataInFile(sdReader(myDir, dataFile));
   openedFile = dataFile;
   return dataInFile;
+}
+
+void closeFiles(){
+  server.send(200, "text/html", closeFileFunc(myDir));
+  openedFile = "";
 }
