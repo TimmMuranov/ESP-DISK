@@ -9,6 +9,7 @@
 #include "netFunc/takePostDir.cpp"
 #include "netFunc/takePostFile.cpp"
 #include "netFunc/takePostText.cpp"
+#include "netFunc/closeFileFunc.cpp"
 #include "readers/base64_decoder.cpp"
 
 void amogus();
@@ -21,4 +22,5 @@ void clear();
 void takePostDir();
 void takePostFile();
 void takePostText();
+void closeFileFunc();
 void base64_decoder();
