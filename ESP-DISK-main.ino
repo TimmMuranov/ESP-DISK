@@ -11,22 +11,6 @@
 #include <SD.h>
 
 //======= Включение файлов =======
-/*
-#include "headers/blinker.hpp"
-#include "headers/amogus.hpp"
-#include "headers/creatBut.hpp"
-#include "headers/rmDir.hpp"
-#include "headers/getPage.hpp"
-#include "headers/readers/sdReader.hpp"
-/* #include "headers/readers/fsReader.h" //объявлна в getPage.h */
-/*
-#include "headers/netFunc/clear.hpp"
-#include "headers/netFunc/takePostDir.hpp"
-#include "headers/netFunc/takePostFile.hpp"
-#include "headers/netFunc/takePostText.hpp"
-#include "headers/readers/base64_decoder.hpp"
-*/
-
 #include "headers/headers.h"
 
 //====== Глобальные переменные ====
