@@ -29,7 +29,7 @@ int fastBlinks = 0;
 void setup (){
   Serial.begin(115200);
 
-  while(!Serial){}//ждем serial
+  while(!Serial){}//ждем инициализации serial
 
   Serial.print("Initializing SD card...");
   if(!SD.begin(4)) Serial.println("initialization failed!");
