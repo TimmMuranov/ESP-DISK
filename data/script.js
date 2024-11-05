@@ -4,7 +4,7 @@ const textNameArea = document.getElementById('openFileName');
 document.getElementById('paintContainer').style.display = "none";
 document.getElementById('wordContainer').style.display = "block";
 
-document.getElementById('changeMode').addEventListener('click', () => {
+document.getElementById('changeMode').addEventListener('click', async () => {
     if (document.getElementById('wordContainer').style.display === "block"){
         document.getElementById('wordContainer').style.display = "none";
         document.getElementById('paintContainer').style.display = "block";
@@ -15,6 +15,13 @@ document.getElementById('changeMode').addEventListener('click', () => {
         document.getElementById('paintContainer').style.display = "none";
         localStorage.setItem('editorMod', 'text');
     }
+    if(localStorage.getItem('text') !== null) localStorage.removeItem('text');
+    if(localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
+    if(localStorage.getItem('canvasData') !== null) localStorage.removeItem('canvasData');
+    inputArea.value = '';
+    textNameArea.value = '';
+    await fetchForm("/cs", "close");
+    location.reload();
 })
 
 //==== Установка сохраненных значений ====
@@ -79,6 +86,7 @@ document.getElementById('creatDir').addEventListener('click', async () => {
 });
 
 document.getElementById('Home').addEventListener('click', async () => {
+    await fetchForm("/cs", "close");
     let answer = await fetchForm('/h', "toHome");
     inputArea.value = '';
     textNameArea.value = '';
@@ -114,6 +122,7 @@ document.querySelectorAll('button').forEach((button) => {
     if (button.getAttribute('name') === 'fileButtons') {
         if (button.getAttribute('id') === 'dirs'){
             button.addEventListener('click', async () => {
+                await fetchForm("/cs", "close");
                 let answer = await fetchForm('/f', fileName);
                 inputArea.value = '';
                 textNameArea.value = '';
