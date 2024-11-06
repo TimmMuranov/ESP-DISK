@@ -277,7 +277,7 @@ colorSet.addEventListener('click', () => {
 //========= функции сохранения =========
 document.getElementById("DownloadButton").addEventListener('click', () => {
     if(document.getElementById('paintContainer').style.display === "block"){
-        const dataUrl = document.getElementById("canvas").toDataURL('image/png');
+        const dataUrl = document.getElementById("canvas").toDataURL('image/jpeg');
         const link = document.createElement('a');
         link.href = dataUrl;
         let name = "";
