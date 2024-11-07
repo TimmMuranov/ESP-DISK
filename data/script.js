@@ -251,9 +251,8 @@ function draw(e) {
 
     if (mode === 'free') {
         ctx.strokeStyle = mainColors[colNum];
-    } else if(mode === 'eraser'){
+    } else{
         ctx.strokeStyle = "white";
-
     }
     ctx.lineTo(x, y);
     ctx.stroke();
