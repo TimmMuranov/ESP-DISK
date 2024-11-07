@@ -180,6 +180,11 @@ document.querySelectorAll('button').forEach((button) => {
             })
         }
     }
+    else if(button.getAttribute('name') === 'textControls'){
+         button.addEventListener('click', function () {
+             alert("Настройка текста пока не работает");
+         }
+    }
 })
 
 //======== функции рисовалки ====================
