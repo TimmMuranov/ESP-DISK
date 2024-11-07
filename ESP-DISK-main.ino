@@ -14,8 +14,7 @@
 #include "headers/headers.h"
 
 //====== Глобальные переменные ====
-const char *ssid="TimsServer";//имя 
-const char *password ="12345678";//пароль 
+#include "headers/config.h" //Здесь пароль и имя точки доступа
 
 ESP8266WebServer server(80);
 
