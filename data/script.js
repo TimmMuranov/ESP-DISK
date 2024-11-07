@@ -1,28 +1,10 @@
-//====== настройка режима редактора =====
+//====== часто встречающиеся объекты =====
 const inputArea = document.getElementById('inputArea');
 const textNameArea = document.getElementById('openFileName');
-document.getElementById('paintContainer').style.display = "none";
-document.getElementById('wordContainer').style.display = "block";
-
-document.getElementById('changeMode').addEventListener('click', async () => {
-    if (document.getElementById('wordContainer').style.display === "block"){
-        document.getElementById('wordContainer').style.display = "none";
-        document.getElementById('paintContainer').style.display = "block";
-        localStorage.setItem('editorMod', 'paint');
-    }
-    else if (document.getElementById('paintContainer').style.display === "block"){
-        document.getElementById('wordContainer').style.display = "block";
-        document.getElementById('paintContainer').style.display = "none";
-        localStorage.setItem('editorMod', 'text');
-    }
-    if(localStorage.getItem('text') !== null) localStorage.removeItem('text');
-    if(localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
-    if(localStorage.getItem('canvasData') !== null) localStorage.removeItem('canvasData');
-    inputArea.value = '';
-    textNameArea.value = '';
-    await fetchForm("/cs", "close");
-    location.reload();
-})
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const wordContainer = document.getElementById('wordContainer');
+const paintContainer = document.getElementById('paintContainer')
 
 //==== Установка сохраненных значений ====
 if(localStorage.getItem('text') !== null) inputArea.value = localStorage.getItem('text');
@@ -30,12 +12,12 @@ if(localStorage.getItem('textName') !== null) textNameArea.value = localStorage.
 
 if(localStorage.getItem('editorMod') !== null) {
     if(localStorage.getItem('editorMod') === 'paint'){
-        document.getElementById('paintContainer').style.display = "block";
-        document.getElementById('wordContainer').style.display = "none";
+        paintContainer.style.display = "block";
+        wordContainer.style.display = "none";
     }
-    else{
-        document.getElementById('paintContainer').style.display = "none";
-        document.getElementById('wordContainer').style.display = "block";
+    else if(localStorage.getItem('editorMod') === 'word'){
+        paintContainer.style.display = "none";
+        wordContainer.style.display = "block";
     }
 }
 if(localStorage.getItem('canvasData') !== null){
@@ -48,17 +30,44 @@ if(localStorage.getItem('canvasData') !== null){
 }
 
 //======== обработчики событий =======
+document.getElementById('changeMode').addEventListener('click', async () => {
+    if wordContainer.style.display === "block"){
+        wordContainer.style.display = "none";
+        paintContainer.style.display = "block";
+        localStorage.setItem('editorMod', 'paint');
+    }
+    else if (document.getElementById('paintContainer').style.display === "block"){
+        wordContainer.style.display = "block";
+        paintContainer.style.display = "none";
+        localStorage.setItem('editorMod', 'text');
+    }
+    else{
+        paintContainer.style.display = "none";
+        wordContainer.style.display = "block";
+    }
+    //==== удаление сохраненных значений и очистка ====
+    if(localStorage.getItem('text') !== null) localStorage.removeItem('text');
+    if(localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
+    if(localStorage.getItem('canvasData') !== null) localStorage.removeItem('canvasData');
+    inputArea.value = '';
+    textNameArea.value = '';
+    
+    ctx.fillStyle = '#ffffff';//заполняем канву белым.
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    await fetchForm("/cs", "close");//закрываем все файлы в директории
+    //location.reload();
+})
+
 document.getElementById('submitButton').addEventListener('click', async () => {
     let data;
-    if(document.getElementById('paintContainer').style.display === "block"){
+    if (paintContainer.style.display === "block"){
         data = canvas.toDataURL("image/jpeg");
         localStorage.setItem('canvasData', data);
-        localStorage.removeItem('textName');
     }
     else if(document.getElementById('wordContainer').style.display === "block"){
         data = inputArea.value;
-        localStorage.setItem('textName', data);
-        localStorage.removeItem('canvasData');
+        localStorage.setItem('text', data);
     }
 
     let answer =  await fetchForm('/q', data);
@@ -172,16 +181,10 @@ document.querySelectorAll('button').forEach((button) => {
 })
 
 //======== функции рисовалки ====================
-
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
 let drawing = false;
 let mode; // 'free' for free drawing, 'eraser' for eraser
 let lastX = 0;
 let lastY = 0;
-
-ctx.fillStyle = '#ffffff'; //заполняем канву белым.
-ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 const brushSizeInput = document.getElementById('brushSize');
 const eraserSizeInput = document.getElementById('eraserSize');
