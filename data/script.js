@@ -15,11 +15,16 @@ if(localStorage.getItem('editorMod') !== null) {
         paintContainer.style.display = "block";
         wordContainer.style.display = "none";
     }
-    else if(localStorage.getItem('editorMod') === 'word'){
+    else{
         paintContainer.style.display = "none";
         wordContainer.style.display = "block";
     }
 }
+else{
+    paintContainer.style.display = "none";
+    wordContainer.style.display = "block";
+}
+
 if(localStorage.getItem('canvasData') !== null){
     var dataURL = localStorage.getItem('canvasData');
     var img = new Image;
@@ -31,7 +36,7 @@ if(localStorage.getItem('canvasData') !== null){
 
 //======== обработчики событий =======
 document.getElementById('changeMode').addEventListener('click', async () => {
-    if wordContainer.style.display === "block"){
+    if (wordContainer.style.display === "block"){
         wordContainer.style.display = "none";
         paintContainer.style.display = "block";
         localStorage.setItem('editorMod', 'paint');
@@ -180,11 +185,12 @@ document.querySelectorAll('button').forEach((button) => {
             })
         }
     }
-    else if(button.getAttribute('name') === 'textControls'){
-         button.addEventListener('click', function () {
-             alert("Настройка текста пока не работает");
-         }
-    }
+})
+
+document.querySelectorAll('#textControls').forEach((button) => {
+    button.addEventListener('click', async () => {
+        alert("Настройки текста пока не работают");
+    })
 })
 
 //======== функции рисовалки ====================
