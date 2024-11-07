@@ -14,7 +14,7 @@
 #include "headers/headers.h"
 
 //====== Глобальные переменные ====
-#include "headers/config.h" //Здесь пароль и имя точки доступа
+#include "config.h" //Здесь пароль и имя точки доступа
 
 ESP8266WebServer server(80);
 
