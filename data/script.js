@@ -151,30 +151,32 @@ document.querySelectorAll('button').forEach((button) => {
                 let answer = await fetchForm('/f', fileName);
 
                 if(fileName.endsWith(".txt")){
-                    document.getElementById('wordContainer').style.display = "block";
-                    document.getElementById('paintContainer').style.display = "none";
+                    wordContainer.style.display = "block";
+                    paintContainer.style.display = "none";
                     localStorage.setItem('editorMod', 'word');
 
                     inputArea.value = answer;
 
                     localStorage.setItem('text', answer);
-                    localStorage.setItem('textName', fileName);
                 }
                 else if(fileName.endsWith(".jpeg")){
-                    document.getElementById('wordContainer').style.display = "none";
-                    document.getElementById('paintContainer').style.display = "block";
+                    wordContainer.style.display = "none";
+                    paintContainer.style.display = "block";
                     localStorage.setItem('editorMod', 'paint');
 
                     var img = new Image;
                     img.src = answer;
                     img.onload = function () {
-                    ctx.drawImage(img, 0, 0);
+                        ctx.drawImage(img, 0, 0);
                     }
 
                     localStorage.setItem('canvasData', answer);
-                    localStorage.setItem('textName', fileName);
+                }
+                else{
+                    alert("Неизвестный формат.");
                 }
                 textNameArea.value = fileName;
+                localStorage.setItem('textName', fileName);
             })
         }
     }
