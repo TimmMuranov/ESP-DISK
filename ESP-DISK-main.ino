@@ -60,7 +60,7 @@ void loop(){
   unsigned long currentMillis = millis();
   int blinkTime = (fastBlinks > 0) ? 50 : 5000;
   if(flag==0){
-    if(currentMillis - lastBlink > 5000){
+    if(currentMillis - lastBlink > blinkTime){
       lastBlink = currentMillis;
       flag=1;
       digitalWrite(2, LOW);
