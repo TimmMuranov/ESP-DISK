@@ -58,6 +58,7 @@ void loop(){
   server.handleClient();
 
   unsigned long currentMillis = millis();
+  int blinkTime = (fastBlinks > 0) ? 50 : 5000;
   if(flag==0){
     if(currentMillis - lastBlink > 5000){
       lastBlink = currentMillis;
@@ -70,6 +71,7 @@ void loop(){
       flag=0;
       digitalWrite(2, HIGH);
       lastBlink = currentMillis;
+      if(fastBlinks) --fastBlinks;
     }
   }
 }
@@ -115,13 +117,13 @@ void toHome(){
 //=========== Удаление =============
 void clear(){
   server.send(200, "text/plain", delDirFile(myDir, server.arg("plain")));
-  blinker(2, 6, 25, 25, 1);
+  fastBlinks = 3;
 }
 
 //=== открытие файла/директории ====
 void openFile(){
   server.send(200, "text/plain", openFileFunc());
-  blinker(2, 1, 50, 50, 1);
+  fastBlinks = 1;
 }
 //____________________________________
 //Эта функция изменяет глобал переменные, так что она в основном файле
