@@ -19,8 +19,8 @@
 Они будут храниться в файле ESP-DISK/data/about.html" (можно открыть со страницы сервера)<p> 
 
 Внешний вид:
-<img src='images/imgEditor.jpg' />
-<img src='images/textEditor.jpg' />
+<img src='images/treeImg.jpg' />
+<img src='images/treeTxt.jpg' />
 
 [1]: https://microcontrollerslab.com/littlefs-introduction-install-esp8266-nodemcu-filesystem-uploader-arduino
 [2]: https://github.com/esp8266/Arduino
