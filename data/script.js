@@ -34,6 +34,22 @@ if(localStorage.getItem('canvasData') !== null){
     };
 }
 
+if(localStorage.getItem("textStyle") !== null){
+    document.getElementById('textControlsValue').textContent = localStorage.getItem("textStyle");
+    inputArea.style.fontFamily = localStorage.getItem("textStyle");
+}
+
+if(localStorage.getItem("textTheme") !== null){
+    document.getElementById('textTheme').textContent = "dark";
+    inputArea.style.backgroundColor = "black";
+    inputArea.style.color = "white";
+}
+else{
+    document.getElementById('textTheme').textContent = "light";
+    inputArea.style.backgroundColor = "white";
+    inputArea.style.color = "black";
+}
+
 //======== обработчики событий =======
 document.getElementById('changeMode').addEventListener('click', async () => {
     if (wordContainer.style.display === "block"){
@@ -191,32 +207,32 @@ document.getElementById('textControlsValue').addEventListener('click', function 
     if(document.getElementById('textControlsValue').textContent === "default"){
         document.getElementById('textControlsValue').textContent = "courier";
         inputArea.style.fontFamily = "courier";
-        document.getElementById('textControlsValue').style.backgroundColor = "lightBlue";
+        localStorage.setItem("textStyle", "courier");
     }
     else if(document.getElementById('textControlsValue').textContent === "courier"){
         document.getElementById('textControlsValue').textContent = "cursive";
         inputArea.style.fontFamily = "cursive";
-        document.getElementById('textControlsValue').style.backgroundColor = "aqua";
+        localStorage.setItem("textStyle", "cursive");
     }
     else{
         document.getElementById('textControlsValue').textContent = "default";
         inputArea.style.fontFamily = "none";
-        document.getElementById('textControlsValue').style.backgroundColor = "gray";
+        localStorage.removeItem("textStyle");
     }
 })
 
 document.getElementById('textTheme').addEventListener('click', function () {
     if(document.getElementById('textTheme').textContent === "light"){
         document.getElementById('textTheme').textContent = "dark";
-        document.getElementById('textTheme').style.backgroundColor = "Gray";
         inputArea.style.backgroundColor = "black";
         inputArea.style.color = "white";
+        localStorage.setItem("textTheme", "dark");
     }
     else{
         document.getElementById('textTheme').textContent = "light";
-        document.getElementById('textTheme').style.backgroundColor = "lightGray";
         inputArea.style.backgroundColor = "white";
         inputArea.style.color = "black";
+        localStorage.removeItem("textTheme");
     }
 })
 
