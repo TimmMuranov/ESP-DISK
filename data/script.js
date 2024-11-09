@@ -67,11 +67,11 @@ document.getElementById('changeMode').addEventListener('click', async () => {
 document.getElementById('submitButton').addEventListener('click', async () => {
     let data;
     if (paintContainer.style.display === "block"){
-        data = canvas.toDataURL("image/jpeg");
+        data = canvas.toDataURL("image/jpeg", 0.1);
         localStorage.setItem('canvasData', data);
     }
     else if(document.getElementById('wordContainer').style.display === "block"){
-        data = inputArea.value;
+        data = inputArea.value + 'n';
         localStorage.setItem('text', data);
     }
 
@@ -187,10 +187,37 @@ document.querySelectorAll('button').forEach((button) => {
     }
 })
 
-document.querySelectorAll('#textControls').forEach((button) => {
-    button.addEventListener('click', async () => {
-        alert("Настройки текста пока не работают");
-    })
+document.getElementById('textControlsValue').addEventListener('click', function () {
+    if(document.getElementById('textControlsValue').textContent === "default"){
+        document.getElementById('textControlsValue').textContent = "courier";
+        inputArea.style.fontFamily = "courier";
+        document.getElementById('textControlsValue').style.backgroundColor = "lightBlue";
+    }
+    else if(document.getElementById('textControlsValue').textContent === "courier"){
+        document.getElementById('textControlsValue').textContent = "cursive";
+        inputArea.style.fontFamily = "cursive";
+        document.getElementById('textControlsValue').style.backgroundColor = "aqua";
+    }
+    else{
+        document.getElementById('textControlsValue').textContent = "default";
+        inputArea.style.fontFamily = "none";
+        document.getElementById('textControlsValue').style.backgroundColor = "gray";
+    }
+})
+
+document.getElementById('textTheme').addEventListener('click', function () {
+    if(document.getElementById('textTheme').textContent === "light"){
+        document.getElementById('textTheme').textContent = "dark";
+        document.getElementById('textTheme').style.backgroundColor = "Gray";
+        inputArea.style.backgroundColor = "black";
+        inputArea.style.color = "white";
+    }
+    else{
+        document.getElementById('textTheme').textContent = "light";
+        document.getElementById('textTheme').style.backgroundColor = "lightGray";
+        inputArea.style.backgroundColor = "white";
+        inputArea.style.color = "black";
+    }
 })
 
 //======== функции рисовалки ====================
@@ -292,7 +319,7 @@ colorSet.addEventListener('click', () => {
 //========= функции сохранения =========
 document.getElementById("DownloadButton").addEventListener('click', () => {
     if(document.getElementById('paintContainer').style.display === "block"){
-        const dataUrl = document.getElementById("canvas").toDataURL('image/png');
+        const dataUrl = BigInt(document.getElementById("canvas").toDataURL('image/png', 0.5));
         const link = document.createElement('a');
         link.href = dataUrl;
         let name = "";
@@ -311,6 +338,7 @@ document.getElementById("DownloadButton").addEventListener('click', () => {
         }
         return;
     }
+
     let textName = prompt("Введите название, под которым хотите сохранить файл");
     if(textName === ''){alert("Вы не ввели название"); return;}
     if(textName === null){alert("Ок. Отменяем :)"); return;}

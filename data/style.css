@@ -41,6 +41,9 @@
     background-color: Red;
     border-radius: 20%;
 }
+.controls{
+    margin: 10px;
+}
 /*==== стили канваса ==== */
 canvas 
 {
@@ -76,4 +79,10 @@ canvas
   height: 100%;
   padding: 0px;
   margin: 0px;
+}
+#textControlsValue{
+    background-color: gray;
+}
+#textTheme{
+    background-color: gray;
 }
