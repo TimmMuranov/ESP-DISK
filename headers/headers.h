@@ -1,4 +1,4 @@
-#include "amogus.cpp"
+//#include "amogus.cpp"
 #include "creatBut.cpp"
 #include "rmDir.cpp"
 #include "getPage.cpp"
@@ -11,7 +11,7 @@
 #include "netFunc/closeFileFunc.cpp"
 #include "readers/base64_decoder.cpp"
 
-void amogus();
+//void amogus();
 void blinker();
 void creatBut();
 void rmDir();
