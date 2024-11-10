@@ -80,6 +80,7 @@ canvas
   padding: 0px;
   margin: 0px;
 }
+/*=== стили кнопок растройки ===*/
 #textControlsValue{
     background-color: gray;
 }
