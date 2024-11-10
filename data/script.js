@@ -8,7 +8,7 @@ const paintContainer = document.getElementById('paintContainer')
 
 //==== Установка сохраненных значений ====
 if(localStorage.getItem('text') !== null) inputArea.value = localStorage.getItem('text');
-if(localStorage.getItem('textName') !== null) textNameArea.value = localStorage.getItem('textName');
+if(localStorage.getItem('textName') !== null) textNameArea.innerHTML = localStorage.getItem('textName');
 
 if(localStorage.getItem('editorMod') !== null) {
     if(localStorage.getItem('editorMod') === 'paint'){
@@ -71,7 +71,7 @@ document.getElementById('changeMode').addEventListener('click', async () => {
     if(localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
     if(localStorage.getItem('canvasData') !== null) localStorage.removeItem('canvasData');
     inputArea.value = '';
-    textNameArea.value = '';
+    textNameArea.innerHTML = '';
     
     ctx.fillStyle = '#ffffff';//заполняем канву белым.
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -83,11 +83,11 @@ document.getElementById('changeMode').addEventListener('click', async () => {
 document.getElementById('submitButton').addEventListener('click', async () => {
     let data;
     if (paintContainer.style.display === "block"){
-        data = canvas.toDataURL("image/jpeg", 0.1);
+        data = canvas.toDataURL("image/jpeg", 0.2);
         localStorage.setItem('canvasData', data);
     }
     else if(document.getElementById('wordContainer').style.display === "block"){
-        data = inputArea.value + 'n';
+        data = inputArea.value;
         localStorage.setItem('text', data);
     }
 
@@ -132,7 +132,7 @@ document.getElementById('Home').addEventListener('click', async () => {
     await fetchForm("/cs", "close");
     let answer = await fetchForm('/h', "toHome");
     inputArea.value = '';
-    textNameArea.value = '';
+    textNameArea.innerHTML = '';
     if (localStorage.getItem('text') !== null) localStorage.removeItem('text');
     if (localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
     location.reload();
@@ -161,7 +161,7 @@ document.querySelectorAll('button').forEach((button) => {
                 await fetchForm("/cs", "close");
                 let answer = await fetchForm('/f', fileName);
                 inputArea.value = '';
-                textNameArea.value = '';
+                textNameArea.innerHTML = '';
                 if (localStorage.getItem('text') !== null) localStorage.removeItem('text');
                 if (localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
                 location.reload();
@@ -196,7 +196,7 @@ document.querySelectorAll('button').forEach((button) => {
                 else{
                     alert("Неизвестный формат.");
                 }
-                textNameArea.value = fileName;
+                textNameArea.innerHTML = fileName;
                 localStorage.setItem('textName', fileName);
             })
         }
