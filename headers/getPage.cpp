@@ -3,7 +3,7 @@
 содержащую окно для ввода и кнопки-файлы
 */
 #include "readers/fsReader.cpp"
-String getPage(String myD){
+String getPage(String myD, String serverName){
   String page =
   "<!DOCTYPE html>"
   "<html lang='ru'>"
@@ -16,7 +16,7 @@ String getPage(String myD){
   "</style>"
   "<body id='gradient'>"
   "<div class='form-container'>"
-  "<h2 style='align:center;'>Добро пожаловать!</h2>"
+  "<h2 style='align:center;'>Вы на сервере " + serverName + "</h2>"
   "<p><button id='about'>Об устройстве</button><p>"
   "<hr><h3>Текущая директория:" +
   myD + "</h3><p>"
