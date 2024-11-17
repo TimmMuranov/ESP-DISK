@@ -84,7 +84,7 @@ void loop(){
 ///////////////////////////////////
 //===== открывает интерфейс ===========
 void winOpen(){
-  server.send(200, "text/html", getPage(myDir));
+  server.send(200, "text/html", getPage(myDir, serverName));
 }
 
 //====== открытие информации ==========
