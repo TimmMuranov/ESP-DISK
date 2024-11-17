@@ -34,8 +34,9 @@ void setup (){
   if(!SD.begin(4)) Serial.println("initialization failed!");
   Serial.println("initialization SD card done.");
 
-    WiFi.mode(WIFI_AP);
-    WiFi.softAP(ssid, password);
+  WiFi.mode(WIFI_AP);
+  if(password == "") WiFi.softAP(ssid);
+  else WiFi.softAP(ssid, password);
 
   server.on("/", winOpen);//первая загрузка
   server.on("/q", HTTP_POST, handleData);//принимает текст 
