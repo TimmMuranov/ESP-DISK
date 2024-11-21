@@ -13,6 +13,7 @@ String openedFile = "";
 unsigned long lastBlink = 0;
 int flag = 0;
 int fastBlinks = 0;
+
 ////////////// НАСТРОЙКИ /////////////
 void setup (){
   Serial.begin(115200);
