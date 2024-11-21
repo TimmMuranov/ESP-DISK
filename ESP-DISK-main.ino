@@ -1,3 +1,4 @@
+//v1.6
 #include "LittleFS.h"
 #include "ArduinoJson.h"
 #include <ESP8266WiFi.h>
