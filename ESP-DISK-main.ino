@@ -5,7 +5,7 @@
 #include <SPI.h>
 #include <SD.h>
 #include "headers/headers.h"
-#include "config.h" //Здесь пароль и имя точки доступа
+#include "config.h"
 
 ESP8266WebServer server(80);
 String myDir = "/";
