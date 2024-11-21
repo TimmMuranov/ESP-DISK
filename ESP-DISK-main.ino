@@ -1,23 +1,13 @@
-/*
- * Данный код является основным в сервере. 
- * Здесь происходят взаимодействия функций.
-*/
-//==== Объявление библиотек =====
 #include "LittleFS.h"
 #include "ArduinoJson.h"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <SPI.h>
 #include <SD.h>
-
-//======= Включение файлов =======
 #include "headers/headers.h"
-
-//====== Глобальные переменные ====
 #include "config.h" //Здесь пароль и имя точки доступа
 
 ESP8266WebServer server(80);
-
 String myDir = "/";
 String openedFile = "";
 
@@ -27,17 +17,14 @@ int fastBlinks = 0;
 ////////////// НАСТРОЙКИ /////////////
 void setup (){
   Serial.begin(115200);
-
   while(!Serial){}//ждем serial
-
-  Serial.print("Initializing SD card...");
   if(!SD.begin(4)) Serial.println("initialization failed!");
-  Serial.println("initialization SD card done.");
-
   WiFi.mode(WIFI_AP);
-  if(password == "") WiFi.softAP(ssid);
-  else WiFi.softAP(ssid, password);
-
+  #if defined(password) 
+     WiFi.softAP(ssid, password);
+  #else 
+     WiFi.softAP(ssid);
+  #endif
   server.on("/", winOpen);//первая загрузка
   server.on("/q", HTTP_POST, handleData);//принимает текст 
   server.on("/bf", HTTP_POST, handleFile);//создает файл
@@ -48,8 +35,6 @@ void setup (){
   server.on("/a", about);//открытие описания
   server.on("/cs", HTTP_POST, closeFiles);//закрывает все файлы в текущей директории
   server.begin();
-  Serial.println("Access Point started");
-
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
 }
@@ -132,12 +117,10 @@ String openFileFunc(){
   String data = server.arg("plain");
   if (data == "") {
     return "Пустой запрос";
-    Serial.println("Нет данных.");
   }
   StaticJsonDocument<100> doc;
   DeserializationError error = deserializeJson(doc, data);
   if (error) {
-    Serial.println("не удалось парсить");
     return "failed to parse JSON";
   }
   
@@ -148,7 +131,6 @@ String openFileFunc(){
   if (file.isDirectory()){
     myDir += dataFile + "/";
     openedFile = "";
-    Serial.println ("Вы перешли в директорию " + dataFile);
     return "";
   }
   String dataInFile(sdReader(myDir, dataFile));
