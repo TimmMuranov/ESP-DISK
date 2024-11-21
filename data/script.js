@@ -397,6 +397,9 @@ async function fetchForm (inUrl, inData){
 }
 //=== Проверка пароля ====
 function pswdCheck(){
-    if(prompt("Введите пароль") != pswd) return 1;
+    if(prompt("Введите пароль") != pswd){
+        alert("Неверно");
+        return 1;
+    }
     return 0;
 }
