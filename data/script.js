@@ -81,6 +81,7 @@ document.getElementById('changeMode').addEventListener('click', async () => {
 })
 
 document.getElementById('submitButton').addEventListener('click', async () => {
+    if(pswdCheck()) return;
     let data;
     if (paintContainer.style.display === "block"){
         data = canvas.toDataURL("image/jpeg", 0.2);
@@ -96,6 +97,7 @@ document.getElementById('submitButton').addEventListener('click', async () => {
 });
 
 document.getElementById('creatFile').addEventListener('click', async () => {
+    if(pswdCheck()) return;
     let data = prompt('Введите имя нового файла');
     if(data === null){
         alert("Ок. Отменяем.");
@@ -117,6 +119,7 @@ document.getElementById('creatFile').addEventListener('click', async () => {
 });
 
 document.getElementById('creatDir').addEventListener('click', async () => {
+    if(pswdCheck()) return;
     const data = prompt('Введите имя новой директории');
     if(data == null){
         alert("Создание директории отменено.");
@@ -128,17 +131,8 @@ document.getElementById('creatDir').addEventListener('click', async () => {
     }
 });
 
-document.getElementById('Home').addEventListener('click', async () => {
-    await fetchForm("/cs", "close");
-    let answer = await fetchForm('/h', "toHome");
-    inputArea.value = '';
-    textNameArea.innerHTML = '';
-    if (localStorage.getItem('text') !== null) localStorage.removeItem('text');
-    if (localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
-    location.reload();
-});
-
 document.getElementById('clear').addEventListener('click', async () => {
+    if(pswdCheck()) return;
     const data = prompt('Введите имя файла или директории');
     if(data===null){
         alert('Удаление отменено.');
@@ -146,6 +140,16 @@ document.getElementById('clear').addEventListener('click', async () => {
     }
     let answer = await fetchForm('/c', data);
     alert(answer);
+    location.reload();
+});
+
+document.getElementById('Home').addEventListener('click', async () => {
+    await fetchForm("/cs", "close");
+    let answer = await fetchForm('/h', "toHome");
+    inputArea.value = '';
+    textNameArea.innerHTML = '';
+    if (localStorage.getItem('text') !== null) localStorage.removeItem('text');
+    if (localStorage.getItem('textName') !== null) localStorage.removeItem('textName');
     location.reload();
 });
 
@@ -390,4 +394,9 @@ async function fetchForm (inUrl, inData){
         console.error('Ошбка отправки данных: ', error);
     }
     console.log("Функция fetchForm завершилась:\n"+serverResponseText);
+}
+//=== Проверка пароля ====
+function pswdCheck(){
+    if(prompt("Введите пароль") != pswd) return 1;
+    return 0;
 }
