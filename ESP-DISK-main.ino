@@ -5,15 +5,16 @@
 #include <SPI.h>
 #include <SD.h>
 #include "headers/headers.h"
-#include "config.h"
+#include "config.h" //Здесь пароль и имя точки доступа
 
-ESP8266WebServer server(80);
 String myDir = "/";
 String openedFile = "";
+
 unsigned long lastBlink = 0;
 int flag = 0;
 int fastBlinks = 0;
 
+ESP8266WebServer server(80);
 ////////////// НАСТРОЙКИ /////////////
 void setup (){
   Serial.begin(115200);
@@ -70,7 +71,7 @@ void loop(){
 ///////////////////////////////////
 //===== открывает интерфейс ===========
 void winOpen(){
-  server.send(200, "text/html", getPage(myDir, serverName));
+  server.send(200, "text/html", getPage(myDir, serverName, filePswd));
 }
 
 //====== открытие информации ==========
