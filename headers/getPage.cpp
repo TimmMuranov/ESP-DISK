@@ -10,10 +10,8 @@ String getPage(String myD, String serverName){
   "<head>"
   "<meta charset='UTF-8'>"
   "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
-  "<title>Servak</title>"
-  "<style>" +
-    FsReader("style.css") +
-  "</style>"
+  "<title>" + serverName + "</title>"
+  "<style>" + FsReader("style.css") + "</style>"
   "<body id='gradient'>"
   "<div class='form-container'>"
   "<h2 style='align:center;'>Вы на сервере " + serverName + "</h2>"
