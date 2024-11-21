@@ -52,7 +52,7 @@ String getPage(String myD, String serverName, String pswd){
   "</div><hr>" +
   creatBut(myD) +
   "<script>" +
-  "let pswd = " + pswd + ";"
+  "let pswd = " + pswd + ";" +
   FsReader("script.js") +
   FsReader("background.js") +
   "</script></body></html>";
