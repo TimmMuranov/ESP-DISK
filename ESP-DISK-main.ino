@@ -8,6 +8,11 @@
 #include "config.h"
 
 ESP8266WebServer server(80);
+String myDir = "/";
+String openedFile = "";
+unsigned long lastBlink = 0;
+int flag = 0;
+int fastBlinks = 0;
 ////////////// НАСТРОЙКИ /////////////
 void setup (){
   Serial.begin(115200);
