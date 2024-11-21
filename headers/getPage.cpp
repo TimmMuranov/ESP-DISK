@@ -3,7 +3,7 @@
 содержащую окно для ввода и кнопки-файлы
 */
 #include "readers/fsReader.cpp"
-String getPage(String myD, String serverName){
+String getPage(String myD, String serverName, String pswd){
   String page =
   "<!DOCTYPE html>"
   "<html lang='ru'>"
@@ -52,6 +52,7 @@ String getPage(String myD, String serverName){
   "</div><hr>" +
   creatBut(myD) +
   "<script>" +
+  "let pswd = " + pswd + ";"
   FsReader("script.js") +
   FsReader("background.js") +
   "</script></body></html>";
