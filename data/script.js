@@ -50,6 +50,8 @@ else{
     inputArea.style.color = "black";
 }
 
+if(localStorage.getItem("pswd")) localStorage.removeItem("pswd");
+
 //======== обработчики событий =======
 document.getElementById('changeMode').addEventListener('click', async () => {
     if (wordContainer.style.display === "block"){
@@ -397,9 +399,12 @@ async function fetchForm (inUrl, inData){
 }
 //=== Проверка пароля ====
 function pswdCheck(){
-    if(prompt("Введите пароль") != pswd){
+    if (localStorage.getItem("pswd") == pswd) return 0;
+    let p = prompt("Введи пароль");
+    if(p != pswd){
         alert("Неверно");
         return 1;
     }
+    localStorage.setItem("pswd", p);
     return 0;
 }
