@@ -50,8 +50,6 @@ else{
     inputArea.style.color = "black";
 }
 
-if(localStorage.getItem("pswd")) localStorage.removeItem("pswd");
-
 //======== обработчики событий =======
 document.getElementById('changeMode').addEventListener('click', async () => {
     if (wordContainer.style.display === "block"){
