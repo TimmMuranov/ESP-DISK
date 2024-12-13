@@ -1,5 +1,3 @@
-const windowOuterWidth = window.outerWidth //ширина браузера
-const windowOuterHeight = window.outerHeight //высота браузера
 const fileMenue = document.getElementById("fileMenue");
 const openFileMenue = document.getElementById("openFileMenue");
 const tableInside = document.getElementById("tableInside");
