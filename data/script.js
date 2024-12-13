@@ -4,7 +4,7 @@ const textNameArea = document.getElementById('openFileName');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const wordContainer = document.getElementById('wordContainer');
-const paintContainer = document.getElementById('paintContainer')
+const paintContainer = document.getElementById('paintContainer');
 
 //==== Установка сохраненных значений ====
 if(localStorage.getItem('text') !== null) inputArea.value = localStorage.getItem('text');
