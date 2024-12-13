@@ -86,31 +86,3 @@ function moreFunctions(){
         console.log("none");
     }
 }
-
-function flexElement(obj){
-    console.log("Двигалка запущена");
-    let o = getElementById(obj).style;
-    let x_cord = event.clientX;
-    let y_cord = event.clientY;
-
-    if(x_cord > event.clientX){
-        let newX = event.clientX;
-        o.left += x_cord - newX;
-        x_cord = newX
-    }
-    if(x_cord < event.clientX){
-        let newX = event.clientX;
-        o.left -= newX - x_cord;
-        x_cord = newX
-    }
-    if(y_cord > event.clientY){
-        let newY = event.clientY;
-        o.top += y_cord - newY;
-        y_cord = newY
-    }
-    if(y_cord < event.clientY){
-        let newY = event.clientY;
-        o.left -= newY - y_cord;
-        y_cord = newY
-    }
-}// Не работает...
