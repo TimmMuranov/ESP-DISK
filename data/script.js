@@ -6,6 +6,15 @@ const ctx = canvas.getContext('2d');
 const wordContainer = document.getElementById('wordContainer');
 const paintContainer = document.getElementById('paintContainer');
 
+const fileMenue = document.getElementById("fileMenue");
+const openFileMenue = document.getElementById("openFileMenue");
+const tableInside = document.getElementById("tableInside");
+const instruments = document.getElementById("instruments");
+const instWind = document.getElementById("instWind");
+
+const creatText = document.getElementById("ct");
+const creatDir = document.getElementById("cd");
+const creatImg = document.getElementById("ci");
 //==== Установка сохраненных значений ====
 if(localStorage.getItem('text') !== null) inputArea.value = localStorage.getItem('text');
 if(localStorage.getItem('textName') !== null) textNameArea.innerHTML = localStorage.getItem('textName');
@@ -405,4 +414,15 @@ function pswdCheck(){
     }
     localStorage.setItem("pswd", p);
     return 0;
+}
+/*=============================================================*/
+function noneBlock(htmlBtn, htmlObj){
+    htmlBtn.addEventListener("click", function(){
+        if(htmlObj.style.display === "none"){
+            htmlObj.style.display = "block";
+        }
+        else{
+            htmlObj.style.display = "none";
+        }
+    })
 }
