@@ -426,3 +426,25 @@ function noneBlock(htmlBtn, htmlObj){
         }
     })
 }
+
+function creatFiles(button){
+    let answer = [2];
+    answer[1] = button.id;
+    button.addEventListener("click", function(){
+        let butId = button.id;
+
+        let fileName = prompt("Введите имя");
+        if(fileName === "") {
+            alert("Вы не ввели название.");
+            return;
+        }
+        else if(fileName === null){
+            alert("Отменяем.");
+            return;
+        }
+    answer[2] = fileName;
+    alert("Вы попытались создать файл " + answer[2] + ", нажав на кнопку " + butId);
+    // дальнейшая обработка нажатия.
+    // массив answer имеет пару "id нажатой кнопки - введенное имя"
+    })
+}
