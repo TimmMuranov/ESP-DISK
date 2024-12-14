@@ -1,12 +1,12 @@
-const fileMenue = document.getElementById("fileMenue");
-const openFileMenue = document.getElementById("openFileMenue");
-const tableInside = document.getElementById("tableInside");
-const instruments = document.getElementById("instruments");
-const instWind = document.getElementById("instWind");
+const fileMenue = document.getElementById("fileMenue");//Меню с созданием файлов и самими файлами
+const openFileMenue = document.getElementById("openFileMenue");//Кнопка открытия меню файлов
+const tableInside = document.getElementById("tableInside");//Див стола
+const instruments = document.getElementById("instruments");//Кнопка открытия окна с инструментами
+const instWind = document.getElementById("instWind");//Окно с инструментами
 
-const creatText = document.getElementById("ct");
-const creatDir = document.getElementById("cd");
-const creatImg = document.getElementById("ci");
+const creatText = document.getElementById("ct");//Кнопка создания текста
+const creatDir = document.getElementById("cd");//Кнопка создания директории
+const creatImg = document.getElementById("ci");//Кнопка создания картинок
 
 fileMenue.style.display = "none";
 instrumentsMenue.style.display = "none";
@@ -55,6 +55,7 @@ else{
     inputArea.style.color = "black";
 }
 //===== Обработчики кнопок создания ========
+// при нажатии на кнопку htmlBtn, htmlObj переключает видимость
 function noneBlock(htmlBtn, htmlObj){
     htmlBtn.addEventListener("click", function(){
         if(htmlObj.style.display === "none"){
@@ -66,6 +67,7 @@ function noneBlock(htmlBtn, htmlObj){
     })
 }
 
+//===== Создание нового файла ===============
 function creatFiles(button){
     let answer = [2];
     answer[1] = button.id;
@@ -127,4 +129,42 @@ function moreFunctions(){
         instWind.style.display = "none";
         console.log("none");
     }
+}
+
+//====== Функция отправки формы ==============
+async function fetchForm (inUrl, inData){
+    const url = inUrl;
+    const data = inData;
+    try {// Отправляем данные на сервер и сохраняем ответ
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data })
+        });
+        console.log('Данные отправлены на сервер:\n' + data);
+        // Проверяем, был ли запрос успешным
+        if (!response.ok) {
+            console.error('Ошибка сервера: ' + response.statusText);
+        }
+        // Получаем ответ от сервера
+        const serverResponseText = await response.text();
+        return serverResponseText;
+    } catch (error) {
+        console.error('Ошбка отправки данных: ', error);
+    }
+    console.log("Функция fetchForm завершилась:\n"+serverResponseText);
+}
+
+//========= Функция проверки пароли ===============
+function pswdCheck(){
+    if (localStorage.getItem("pswd") == pswd) return 0;
+    let p = prompt("Введи пароль");
+    if(p != pswd){
+        alert("Неверно");
+        return 1;
+    }
+    localStorage.setItem("pswd", p);
+    return 0;
 }
