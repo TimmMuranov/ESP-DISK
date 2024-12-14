@@ -11,7 +11,49 @@ const creatImg = document.getElementById("ci");
 fileMenue.style.display = "none";
 instrumentsMenue.style.display = "none";
 instWind.style.display = "none";
+//===== установка значений по умолчанию (требует коррекции) ====
+if(localStorage.getItem('text') !== null) inputArea.value = localStorage.getItem('text');
+if(localStorage.getItem('textName') !== null) textNameArea.innerHTML = localStorage.getItem('textName');
 
+if(localStorage.getItem('editorMod') !== null) {
+    if(localStorage.getItem('editorMod') === 'paint'){
+        paintContainer.style.display = "block";
+        wordContainer.style.display = "none";
+    }
+    else{
+        paintContainer.style.display = "none";
+        wordContainer.style.display = "block";
+    }
+}
+else{
+    paintContainer.style.display = "none";
+    wordContainer.style.display = "block";
+}
+
+if(localStorage.getItem('canvasData') !== null){
+    var dataURL = localStorage.getItem('canvasData');
+    var img = new Image;
+    img.src = dataURL;
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+    };
+}
+
+if(localStorage.getItem("textStyle") !== null){
+    document.getElementById('textControlsValue').textContent = localStorage.getItem("textStyle");
+    inputArea.style.fontFamily = localStorage.getItem("textStyle");
+}
+
+if(localStorage.getItem("textTheme") !== null){
+    document.getElementById('textTheme').textContent = "dark";
+    inputArea.style.backgroundColor = "black";
+    inputArea.style.color = "white";
+}
+else{
+    document.getElementById('textTheme').textContent = "light";
+    inputArea.style.backgroundColor = "white";
+    inputArea.style.color = "black";
+}
 //===== Обработчики кнопок создания ========
 function noneBlock(htmlBtn, htmlObj){
     htmlBtn.addEventListener("click", function(){
