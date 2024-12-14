@@ -93,7 +93,7 @@ noneBlock(instruments,instrumentsMenue);
 creatFiles(creatText);
 creatFiles(creatDir);
 creatFiles(creatImg);
-//======= Обработчики функций сервера =====
+//======= Функции сервера =====
 
 function downloadFile(){
     alert("Пока что скачивание не работает");
